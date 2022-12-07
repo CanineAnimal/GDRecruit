@@ -7,7 +7,7 @@ You must receive permission from myself or [The Macabees](https://www.nationstat
 Once you do this, your telegram page should show you a telegram template code, which looks something like %TEMPLATE-28847035%. Record this in a place that you can access it -- it need not be secret, and if you forget you can find it in your sent telegram folder.
 
 # Recruiting
-To recruit, first visit [this page](https://canineanimal.github.io/GDRecruit/pages/rec.html). There, enter your GD nation, the telegram template code, and a verification code (which you can generate by pressing the link in the login page while logged into your GD nation in NationStates), and click the "Go" button.
+To recruit, first visit [this page](https://canineanimal.github.io/GDRecruit/pages/rec.html). There, enter your GD nation, the telegram template code, and a verification code (which you can generate by pressing the link in the login page while logged into your GD nation in NationStates), and click the "Log in" button.
 
 Assuming you have set up correctly and received permission to recruit, this will change to a white screen with a button saying "Recruit". Click this while logged into your GD nation -- it will send you to your telegram page in a new tab, with both the recipients and telegram message filled in. Then press "Send" on the telegram page, and press the "Sent" button in the GDRecruit page.
 
