@@ -62,7 +62,7 @@ function funcrecruit(){
 	request.send();
 	
 	if(eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) > (new Date()).getTime()/1000 - 47336400){
-		time = ((14 - (eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/1000) * 10**-7)) * nats.length;
+		time = ((13.25 - (eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/1000) * 10**-7)) * nats.length + 1;
 	}
 	
 	var nations = [];
