@@ -1,7 +1,6 @@
 var time = 5.25;
 var originalTime2;
 var originalTime;
-var lastHap;
 var tem;
 var nat;
 
@@ -11,13 +10,13 @@ function login(){
 	verif = document.querySelector('#VERIF').value;
 	
 	var request = new XMLHttpRequest();
-	request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nation + '&q=region', false);
+	request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nat + '&q=region', false);
 	request.send();
 	if(request.responseXML.querySelector('REGION').innerHTML == 'Greater Dienstad'){
 		var request2 = new XMLHttpRequest();
 		request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?a=verify&nation=' + nat + '&checksum=' + verif, false);
 		request2.send()
-		if (request2.responseText == '1'){
+		if (request2.responseText.indexOf('1') != -1){
 			stRecruit(nat, tem);
 		}else{
 			document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: Verification code is incorrect. Please make sure that you have entered your nation name and verification code correctly. Regenerate a verification code using the same link.</SPAN>'
@@ -33,7 +32,7 @@ function stRecruit(){
 	request.send();
 	
 	if((eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/100) <= 47336400){
-		time = 19 - (eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/100) * 1.719 * 10**-7);
+		time = 19 - ((eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/100) * 1.719 * 10**-7);
 	}
 	
 	var nations = [];
@@ -45,13 +44,9 @@ function stRecruit(){
 	while((new Date()).getTime() < originalTime + 6){};
 	request2.send();
 	originalTime = (new Date()).getTime();
-	for (var item = 0; item < request2.responseXML.length; item++){
-		var happ = request2.responseXML[item].innerHTML;
-		if(happ.indexOf('was founded in') != -1){
-			nations[nations.length] = request2.responseXML[item].querySelector('.nnameblock').innerHTML;
-		}
+	for (var item = 0; item < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').split(',').length); item++){
+		nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').split(',')[item];
 	}
-	lastHap = request2.responseXML[item].querySelector('li').id.split('-')[1];
 	
 	link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
 	for(var item = 0; item < Math.min(8, nations.length); item++){
@@ -68,7 +63,7 @@ function funcrecruit(nats){
 	request.send();
 	
 	if((eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/100) <= 47336400){
-		time = (19 - (eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/100) * 1.719 * 10**-7)) * nats;
+		time = ((19 - (eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/100) * 1.719 * 10**-7)) * nats;
 	}
 	
 	var nations = [];
@@ -76,17 +71,15 @@ function funcrecruit(nats){
 	originalTime = (new Date()).getTime();
 	
 	request2 = new XMLHttpRequest();
-	request2.open('GET', 'https://www.nationstates.net/page=ajax2/a=reports/view=world/filter=founding/sinceid=' + lastHap, false);
-	while((new Date()).getTime() < originalTime + 6){};
+	request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations', false);
+	while((new Date()).getTime() < originalTime + 0.6){};
 	request2.send();
 	originalTime = (new Date()).getTime();
-	for (var item = 0; item < request2.responseXML.length; item++){
-		var happ = request2.responseXML[item].innerHTML;
-		if(happ.indexOf('was founded in') != -1){
-			nations[nations.length] = request2.responseXML[item].querySelector('.nnameblock').innerHTML;
+	for (var item = 0; item < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').split(',').length); item++){
+		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').split(',')[item]) == -1){
+			nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').split(',')[item];
 		}
 	}
-	lastHap = request2.responseXML[item].querySelector('li').id.split('-')[1];
 	
 	link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
 	for(var item = 0; item < Math.min(8, nations.length); item++){
