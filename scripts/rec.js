@@ -9,7 +9,6 @@ function login(){
 	nat = document.querySelector('#NATION').value;
 	tem = document.querySelector('#TEMPLATE').value;
 	verif = document.querySelector('#VERIF').value;
-	
 	var request = new XMLHttpRequest();
 	request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nat + '&q=region', false);
 	request.send();
@@ -18,6 +17,7 @@ function login(){
 		request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?a=verify&nation=' + nat + '&checksum=' + verif, false);
 		request2.send()
 		if (request2.responseText.indexOf('1') != -1){
+			document.body.innerHTML = 'Loading...'
 			stRecruit(nat, tem);
 		}else{
 			document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: Verification code is incorrect. Please make sure that you have entered your nation name and verification code correctly. Regenerate a verification code using the same link.</SPAN>'
@@ -59,6 +59,7 @@ function stRecruit(){
 }
 
 function funcrecruit(nats){
+	document.body.innerHTML = 'Loading...'
 	originalTime2 = (new Date()).getTime();
 	var request = new XMLHttpRequest();
 	request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nat + '&q=foundedtime', false);
