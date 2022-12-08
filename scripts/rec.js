@@ -30,14 +30,6 @@ function login(){
 }
 
 function stRecruit(){
-	var request = new XMLHttpRequest();
-	request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nat + '&q=foundedtime', false);
-	request.send();
-	
-	if((eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/100) <= 47336400){
-		time = 14 - ((eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/100) * 1.719 * 10**-7);
-	}
-	
 	var nations = [];
 	var request2;
 	originalTime = (new Date()).getTime();
