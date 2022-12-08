@@ -1,3 +1,4 @@
+var nats = [];
 var time = 5.25;
 var originalTime2;
 var originalTime;
@@ -44,15 +45,14 @@ function stRecruit(){
 	while((new Date()).getTime() < originalTime + 0.6){};
 	request2.send();
 	originalTime = (new Date()).getTime();
-	for (var item = 0; item < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').split(',').length); item++){
-		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').split(',')[item]) == -1){
-			nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').split(',')[item];
-		}
+	for (var item = 0; item < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length); item++){
+		nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
 	}
 	
 	link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
 	for(var item = 0; item < Math.min(8, nations.length); item++){
 		link += nations[item] + ',';
+		nats[nats.length] = nations[item];
 	};
 	link += '&message=' + tem;
 	document.body.innerHTML = '<A CLASS="TG" HREF="' + link + '" ONCLICK="funcrecruit(' + Math.min(8, nations.length) + ')">Recruit</BUTTON><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
@@ -77,15 +77,16 @@ function funcrecruit(nats){
 	while((new Date()).getTime() < originalTime + 0.6){};
 	request2.send();
 	originalTime = (new Date()).getTime();
-	for (var item = 0; item < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').split(',').length); item++){
-		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').split(',')[item]) == -1){
-			nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').split(',')[item];
+	for (var item = 0; item < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length); item++){
+		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item]) == -1){
+			nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
 		}
 	}
 	
 	link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
 	for(var item = 0; item < Math.min(8, nations.length); item++){
 		link += nations[item] + ',';
+		nats[nats.length] = nations[item];
 	};
 	link += '&message=' + tem;
 	
