@@ -1,6 +1,7 @@
 var nats = [];
 var time = 5.25;
 var originalTime2;
+var notify = true;
 var originalTime;
 var tem;
 var nat;
@@ -17,7 +18,8 @@ function login(){
 		request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?a=verify&nation=' + nat + '&checksum=' + verif, false);
 		request2.send()
 		if (request2.responseText.indexOf('1') != -1){
-			document.body.innerHTML = 'Loading...'
+			document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
+			document.querySelector('#SOUND').checked = notify;
 			stRecruit(nat, tem);
 		}else{
 			document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: Verification code is incorrect. Please make sure that you have entered your nation name and verification code correctly. Regenerate a verification code using the same link.</SPAN>'
@@ -55,11 +57,13 @@ function stRecruit(){
 		nats[nats.length] = nations[item];
 	};
 	link += '&message=' + tem;
-	document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="funcrecruit(' + Math.min(8, nations.length) + ')">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
+	notify = document.querySelector('#SOUND').checked;
+	document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="funcrecruit()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
+	document.querySelector('#SOUND').checked = notify;
 }
 
-function funcrecruit(nats){
-	document.body.innerHTML = 'Loading...'
+function funcrecruit(){
+	document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify'
 	originalTime2 = (new Date()).getTime();
 	var request = new XMLHttpRequest();
 	request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nat + '&q=foundedtime', false);
@@ -92,9 +96,11 @@ function funcrecruit(nats){
 	link += '&message=' + tem;
 	
 	while((new Date()).getTime() < originalTime2 + time){};
+	notify = document.querySelector('#SOUND').checked;
 	document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="funcrecruit()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 	
-	if(document.querySelector('#SOUND').value == true){
+	document.querySelector('#SOUND').checked = notify;
+	if(notify){
 		document.body.innerHTML += '<AUDIO AUTOPLAY><SOURCE SRC="ring.mp3" TYPE="audio/mpeg"></AUDIO>';
 	};
 }
