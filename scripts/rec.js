@@ -1,5 +1,5 @@
 var nats = [];
-var time = 5.25;
+var time = 6;
 var originalTime2;
 var notify = true;
 var originalTime;
@@ -35,7 +35,7 @@ function stRecruit(){
 	request.send();
 	
 	if((eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/100) <= 47336400){
-		time = 19 - ((eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/100) * 1.719 * 10**-7);
+		time = 14 - ((eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/100) * 1.719 * 10**-7);
 	}
 	
 	var nations = [];
@@ -69,8 +69,8 @@ function funcrecruit(){
 	request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nat + '&q=foundedtime', false);
 	request.send();
 	
-	if((eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/100) <= 47336400){
-		time = ((19 - (eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/100) * 1.719 * 10**-7)) * nats;
+	if(eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) <= (new Date()).getTime()/1000 - 47336400){
+		time = ((14 - (eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/1000) * 10**-7)) * nats;
 	}
 	
 	var nations = [];
@@ -95,7 +95,7 @@ function funcrecruit(){
 	};
 	link += '&message=' + tem;
 	
-	while((new Date()).getTime() < originalTime2 + time){};
+	while((new Date()).getTime() < originalTime2 + time * 1000){};
 	notify = document.querySelector('#SOUND').checked;
 	document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="funcrecruit()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 	
