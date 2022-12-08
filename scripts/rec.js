@@ -55,7 +55,7 @@ function stRecruit(){
 		nats[nats.length] = nations[item];
 	};
 	link += '&message=' + tem;
-	document.body.innerHTML = '<A CLASS="TG" HREF="' + link + '" ONCLICK="funcrecruit(' + Math.min(8, nations.length) + ')">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
+	document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="funcrecruit(' + Math.min(8, nations.length) + ')">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 }
 
 function funcrecruit(nats){
@@ -92,7 +92,7 @@ function funcrecruit(nats){
 	link += '&message=' + tem;
 	
 	while((new Date()).getTime() < originalTime2 + time){};
-	document.body.innerHTML = '<A CLASS="TG" HREF="' + link + '" ONCLICK="funcrecruit()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
+	document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="funcrecruit()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 	
 	if(document.querySelector('#SOUND').value == true){
 		document.body.innerHTML += '<AUDIO AUTOPLAY><SOURCE SRC="ring.mp3" TYPE="audio/mpeg"></AUDIO>';
