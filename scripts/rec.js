@@ -33,7 +33,6 @@ function stRecruit(){
 	var nations = [];
 	var request2;
 	originalTime = (new Date()).getTime();
-	
 	request2 = new XMLHttpRequest();
 	request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations', false);
 	while((new Date()).getTime() < originalTime + 0.6){};
@@ -47,10 +46,16 @@ function stRecruit(){
 	for(var item = 0; item < Math.min(8, nations.length); item++){
 		link += nations[item] + ',';
 		nats[nats.length] = nations[item];
-	};
+	}
 	link += '&message=' + tem;
 	notify = document.querySelector('#SOUND').checked;
-	document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="funcrecruit()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
+	document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
+	document.querySelector('#SOUND').checked = notify;
+}
+
+function recBut(){
+	notify = document.querySelector('#SOUND').checked;
+	document.body.innerHTML = '<BUTTON CLASS="TG" ONCLICK="funcrecruit()">Acknowledge</BUTTON><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 	document.querySelector('#SOUND').checked = notify;
 }
 
@@ -60,11 +65,9 @@ function funcrecruit(){
 	var request = new XMLHttpRequest();
 	request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nat + '&q=foundedtime', false);
 	request.send();
-	
 	if(eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) > (new Date()).getTime()/1000 - 47336400){
 		time = ((13.25 - (eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/1000) * 10**-7)) * nats.length + 1;
 	}
-	
 	var nations = [];
 	var request2;
 	originalTime = (new Date()).getTime();
@@ -84,15 +87,14 @@ function funcrecruit(){
 	for(var item = 0; item < Math.min(8, nations.length); item++){
 		link += nations[item] + ',';
 		nats[nats.length] = nations[item];
-	};
-	link += '&message=' + tem;
-	
+	}
 	while((new Date()).getTime() < originalTime2 + time * 1000){};
+
+	link += '&message=' + tem;
 	notify = document.querySelector('#SOUND').checked;
-	document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="funcrecruit()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
-	
+	document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 	document.querySelector('#SOUND').checked = notify;
 	if(notify){
 		document.body.innerHTML += '<AUDIO AUTOPLAY><SOURCE SRC="ring.mp3" TYPE="audio/mpeg"></AUDIO>';
-	};
+	}
 }
