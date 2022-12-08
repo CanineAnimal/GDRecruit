@@ -1,5 +1,7 @@
 var time = 5.25;
+var originalTime2;
 var originalTime;
+var lastHap;
 var tem;
 var nat;
 
@@ -35,64 +37,67 @@ function stRecruit(){
 	}
 	
 	var nations = [];
-	var cont = true;
 	var request2;
-	var originalTime = (new Date()).getTime();
+	originalTime = (new Date()).getTime();
 	
-	while (cont){
-		request2 = new XMLHttpRequest();
-		request2.open('GET', 'https://www.nationstates.net/page=ajax2/a=reports/view=world/filter=founding', false);
-		while((new Date()).getTime() > originalTime){};
-		request2.send();
-		originalTime = (new Date()).getTime();
-		for (var item = 0; item < request2.responseXML.length; item++){
-			var happ = request2.responseXML[item].innerHTML;
-			if(happ.indexOf('was founded in') != -1){
-				nations[nations.length] = request2.responseXML[item].querySelector('.nnameblock').innerHTML;
-			}
+	request2 = new XMLHttpRequest();
+	request2.open('GET', 'https://www.nationstates.net/page=ajax2/a=reports/view=world/filter=founding', false);
+	while((new Date()).getTime() < originalTime + 6){};
+	request2.send();
+	originalTime = (new Date()).getTime();
+	for (var item = 0; item < request2.responseXML.length; item++){
+		var happ = request2.responseXML[item].innerHTML;
+		if(happ.indexOf('was founded in') != -1){
+			nations[nations.length] = request2.responseXML[item].querySelector('.nnameblock').innerHTML;
 		}
 	}
+	lastHap = request2.responseXML[item].querySelector('li').id.split('-')[1];
 	
 	link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
 	for(var item = 0; item < Math.min(8, nations.length); item++){
 		link += nations[item] + ',';
 	};
 	link += '&message=' + tem;
-	document.body.innerHTML = '<A CLASS="TG" HREF="' + link + '" ONCLICK="funcrecruit()">Recruit</BUTTON><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
+	document.body.innerHTML = '<A CLASS="TG" HREF="' + link + '" ONCLICK="funcrecruit(' + Math.min(8, nations.length) + ')">Recruit</BUTTON><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 }
 
-function funcrecruit(){
+function funcrecruit(nats){
+	originalTime2 = (new Date()).getTime();
 	var request = new XMLHttpRequest();
 	request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nat + '&q=foundedtime', false);
 	request.send();
 	
 	if((eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/100) <= 47336400){
-		time = 19 - (eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/100) * 1.719 * 10**-7);
+		time = (19 - (eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML) - (new Date()).getTime()/100) * 1.719 * 10**-7)) * nats;
 	}
 	
 	var nations = [];
-	var cont = true;
 	var request2;
-	var originalTime = (new Date()).getTime();
+	originalTime = (new Date()).getTime();
 	
-	while (cont){
-		request2 = new XMLHttpRequest();
-		request2.open('GET', 'https://www.nationstates.net/page=ajax2/a=reports/view=world/filter=founding', false);
-		while((new Date()).getTime() > originalTime){};
-		request2.send();
-		originalTime = (new Date()).getTime();
-		for (var item = 0; item < request2.responseXML.length; item++){
-			var happ = request2.responseXML[item].innerHTML;
-			if(happ.indexOf('was founded in') != -1){
-				nations[nations.length] = request2.responseXML[item].querySelector('.nnameblock').innerHTML;
-			}
+	request2 = new XMLHttpRequest();
+	request2.open('GET', 'https://www.nationstates.net/page=ajax2/a=reports/view=world/filter=founding/sinceid=' + lastHap, false);
+	while((new Date()).getTime() < originalTime + 6){};
+	request2.send();
+	originalTime = (new Date()).getTime();
+	for (var item = 0; item < request2.responseXML.length; item++){
+		var happ = request2.responseXML[item].innerHTML;
+		if(happ.indexOf('was founded in') != -1){
+			nations[nations.length] = request2.responseXML[item].querySelector('.nnameblock').innerHTML;
 		}
 	}
+	lastHap = request2.responseXML[item].querySelector('li').id.split('-')[1];
 	
 	link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
 	for(var item = 0; item < Math.min(8, nations.length); item++){
 		link += nations[item] + ',';
 	};
 	link += '&message=' + tem;
+	
+	while((new Date()).getTime() < originalTime2 + time){};
 	document.body.innerHTML = '<A CLASS="TG" HREF="' + link + '" ONCLICK="funcrecruit()">Recruit</BUTTON><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
+	
+	if(document.querySelector('#SOUND').value == true){
+		document.body.innerHTML += '<AUDIO AUTOPLAY><SOURCE SRC="ring.mp3" TYPE="audio/mpeg"></AUDIO>';
+	};
 }
