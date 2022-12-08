@@ -40,12 +40,14 @@ function stRecruit(){
 	originalTime = (new Date()).getTime();
 	
 	request2 = new XMLHttpRequest();
-	request2.open('GET', 'https://www.nationstates.net/page=ajax2/a=reports/view=world/filter=founding', false);
-	while((new Date()).getTime() < originalTime + 6){};
+	request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations', false);
+	while((new Date()).getTime() < originalTime + 0.6){};
 	request2.send();
 	originalTime = (new Date()).getTime();
 	for (var item = 0; item < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').split(',').length); item++){
-		nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').split(',')[item];
+		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').split(',')[item]) == -1){
+			nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').split(',')[item];
+		}
 	}
 	
 	link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
