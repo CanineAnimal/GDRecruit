@@ -6,8 +6,11 @@
 	color: white;
 	font-size: 16pt;
 	border: 10px solid white;
-	width: 200px;
-	height: 80px;
+	width: 100px;
+	height: 40px;
+	text-align: center;
+	text-decoration: none;
+	display: block;
 }
 A{
 	color: rgb(0,0,84);
