@@ -93,15 +93,14 @@ function generateRecruits(fromBut){
 	for (var item = 0; item < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length); item++){
 		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item]) == -1){
 			nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
+			nats[nats.length] = nations[item - 1];
 		}
 	}
 	
-	nats = [];
 	if(nations.length > 0){
 		link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
 		for(var item = 0; item < Math.min(8, nations.length); item++){
 			link += nations[item] + ',';
-			nats[nats.length] = nations[item];
 		}
 		if(fd + 47336400 > (new Date()).getTime()/1000){
 			time = ((13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7)) * nations.length + 1;
