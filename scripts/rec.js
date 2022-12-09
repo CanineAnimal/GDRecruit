@@ -30,8 +30,7 @@ function login(){
 	}else{
 		document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: Nation is not an authorised recruiter for Greater Dienstad.</SPAN>'
 	}
-}
-function start(){
+}function start(){
 	nations = [];
 	var request2;
 	request2 = new XMLHttpRequest();
@@ -48,25 +47,24 @@ function start(){
 		nats[nats.length] = nations[item];
 	}
 	link += '&message=' + tem;
-	time = ((13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7)) * Math.min(8, nations.length) + 1;
-	
 	if(document.querySelector('#SOUND').checked){
 		document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
 	}else{
 		document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 	}
-}
-function recBut(){
+}function recBut(){
 	if(document.querySelector('#SOUND').checked){
 		document.body.innerHTML = '<BUTTON CLASS="TG" ONCLICK="initiateRecruitGeneration()">Acknowledge</BUTTON><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
 	}else{
 		document.body.innerHTML = '<BUTTON CLASS="TG" ONCLICK="initiateRecruitGeneration()">Acknowledge</BUTTON><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 	}
-}
-function initiateRecruitGeneration(){
-	setTimeout(generateRecruits, time);
-}
-function generateRecruits(){
+}function initiateRecruitGeneration(){
+	if(fd + 47336400 > (new Date()).getTime()/1000){
+		setTimeout(generateRecruits, (13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7) * Math.min(8, nations.length) + 1);
+	}else{
+		setTimeout(generateRecruits, 6);
+	}
+}function generateRecruits(){
 	if(document.querySelector('#SOUND').checked){
 		document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
 	}else{
@@ -79,7 +77,6 @@ function generateRecruits(){
 	while((new Date()).getTime() < originalTime + 0.6){};
 	request2.send();
 	originalTime = (new Date()).getTime();
-	
 	for (var item = 0; item < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length); item++){
 		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item]) == -1){
 			nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
@@ -97,7 +94,6 @@ function generateRecruits(){
 		}else{
 			document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 		}
-		time = ((13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7)) * Math.min(8, nations.length) + 1;
 	}else{
 		setTimeout(generateRecruits, originalTime + 600 - new Date().getTime());
 	}
