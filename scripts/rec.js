@@ -1,4 +1,3 @@
-var time = 6;
 var nats = [];
 var nations = [];
 var notify = true;
@@ -65,7 +64,11 @@ function recBut(){
 	}
 }
 function initiateRecruitGeneration(){
-	setTimeout(generateRecruits, ((13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7)) * nations.length + 1);
+	if(fd + 47336400 > (new Date()).getTime()/1000){
+		setTimeout(generateRecruits, ((13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7)) * nations.length + 1);
+	}else{
+		setTimeout(generateRecruits, 6);
+	}
 }
 function generateRecruits(){
 	if(document.querySelector('#SOUND').checked){
