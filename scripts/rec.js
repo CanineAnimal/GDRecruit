@@ -1,5 +1,6 @@
 var time = 6;
 var nats = [];
+var nations = [];
 var notify = true;
 var originalTime2;
 var originalTime;
@@ -32,7 +33,7 @@ function login(){
 	}
 }
 function start(){
-	var nations = [];
+	nations = [];
 	var request2;
 	request2 = new XMLHttpRequest();
 	request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations', false);
@@ -64,7 +65,7 @@ function recBut(){
 	}
 }
 function initiateRecruitGeneration(){
-	setTimeout(generateRecruits, originalTime + 600 - new Date().getTime());
+	setTimeout(generateRecruits, ((13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7)) * nations.length + 1);
 }
 function generateRecruits(){
 	if(document.querySelector('#SOUND').checked){
@@ -72,7 +73,7 @@ function generateRecruits(){
 	}else{
 		document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 	}
-	var nations = [];
+	nations = [];
 	var request2;
 	request2 = new XMLHttpRequest();
 	request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations', false);
@@ -84,7 +85,6 @@ function generateRecruits(){
 		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item]) == -1){
 			nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
 			nats[nats.length] = nations[nations.length - 1];
-			tf++;
 		}
 	}
 	if(nations.length > 0){
