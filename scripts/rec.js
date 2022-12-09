@@ -37,7 +37,7 @@ function login(){
 	var request2;
 	request2 = new XMLHttpRequest();
 	request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations', false);
-	while((new Date()).getTime() < originalTime + 0.6){};
+	while((new Date()).getTime() < originalTime + 600){};
 	request2.send();
 	originalTime = (new Date()).getTime();
 	for (var item = 0; item < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length); item++){
@@ -75,7 +75,7 @@ function login(){
 	var request2;
 	request2 = new XMLHttpRequest();
 	request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations', false);
-	while((new Date()).getTime() < originalTime + 0.6){};
+	while((new Date()).getTime() < originalTime + 600){};
 	request2.send();
 	originalTime = (new Date()).getTime();
 	for (var item = 0; item < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length); item++){
