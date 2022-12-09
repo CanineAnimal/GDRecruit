@@ -19,7 +19,7 @@ function login(){
 		request2.send()
 		if (request2.responseText.indexOf('1') != -1){
 			document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
-			fd = eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML;
+			fd = eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML);
 			start();
 		}else{
 			document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: Verification code is incorrect. Please make sure that you have entered your nation name and verification code correctly. Regenerate a verification code using the same link.</SPAN>'
