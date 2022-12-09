@@ -66,13 +66,16 @@ function start(){
 
 function recBut(){
 	if(document.querySelector('#SOUND').checked){
-		document.body.innerHTML = '<BUTTON CLASS="TG" ONCLICK="generateRecruits(true)">Acknowledge</BUTTON><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
+		document.body.innerHTML = '<BUTTON CLASS="TG" ONCLICK="initiateRecruitGeneration()">Acknowledge</BUTTON><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
 	}else{
-		document.body.innerHTML = '<BUTTON CLASS="TG" ONCLICK="generateRecruits(true)">Acknowledge</BUTTON><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
+		document.body.innerHTML = '<BUTTON CLASS="TG" ONCLICK="initiateRecruitGeneration()">Acknowledge</BUTTON><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 	}
 }
 
-function generateRecruits(fromBut){
+function initiateRecruitGeneration(){
+	setTimeout(generateRecruits, originalTime + 600 - new Date().getTime());
+}
+function generateRecruits(){
 	if(document.querySelector('#SOUND').checked){
 		document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
 	}else{
@@ -104,18 +107,14 @@ function generateRecruits(fromBut){
 		for(var item = 0; item < Math.min(8, nations.length); item++){
 			link += nations[item] + ',';
 		}
-		setTimeout(postRecruits, originalTime2 + time * 1000 - new Date().getTime());
+		link += '&message=' + tem;
+		if(document.querySelector('#SOUND').checked){
+			document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify <AUDIO AUTOPLAY><SOURCE SRC="https://canineanimal.github.io/GDRecruit/ring.mp3" TYPE="audio/mpeg"></AUDIO>';
+		}else{
+			document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
+		}
 		time = ((13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7)) * Math.min(8, nations.length) + 1;
 	}else{
 		setTimeout(generateRecruits, originalTime + 600 - new Date().getTime());
-	}
-}
-
-function postRecruits(){
-	link += '&message=' + tem;
-	if(document.querySelector('#SOUND').checked){
-		document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="recBut(true)">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify <AUDIO AUTOPLAY><SOURCE SRC="https://canineanimal.github.io/GDRecruit/ring.mp3" TYPE="audio/mpeg"></AUDIO>';
-	}else{
-		document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="recBut(true)">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 	}
 }
