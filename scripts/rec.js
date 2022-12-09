@@ -86,7 +86,7 @@ function login(){
 			nats[nats.length] = nations[item];
 		}
 		setTimeout(postRecruits, originalTime2 + time * 1000 - new Date().getTime());
-	else{
+	}else{
 		generateRecruits()
 	}
 }function postRecruits(){
