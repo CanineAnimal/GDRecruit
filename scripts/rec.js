@@ -77,11 +77,9 @@ function generateRecruits(fromBut){
 		document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 	}
 	
+	nats = [];
 	if(fromBut){
 		originalTime2 = (new Date()).getTime();
-	}
-	if(fd + 47336400 > (new Date()).getTime()/1000){
-		time = ((13.25 - (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7)) * nats.length + 1;
 	}
 	
 	var nations = [];
@@ -104,6 +102,9 @@ function generateRecruits(fromBut){
 		for(var item = 0; item < Math.min(8, nations.length); item++){
 			link += nations[item] + ',';
 			nats[nats.length] = nations[item];
+		}
+		if(fd + 47336400 > (new Date()).getTime()/1000){
+			time = ((13.25 - (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7)) * nats.length + 1;
 		}
 		setTimeout(postRecruits, originalTime2 + time * 1000 - new Date().getTime());
 	}else{
