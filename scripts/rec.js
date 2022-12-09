@@ -83,7 +83,6 @@ function generateRecruits(fromBut){
 	
 	var nations = [];
 	var request2;
-	originalTime = (new Date()).getTime();
 	request2 = new XMLHttpRequest();
 	request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations', false);
 	while((new Date()).getTime() < originalTime + 0.6){};
@@ -107,7 +106,7 @@ function generateRecruits(fromBut){
 		}
 		setTimeout(postRecruits, originalTime2 + time * 1000 - new Date().getTime());
 	}else{
-		setTimeout(generateRecruits(false), originalTime + 600 - new Date().getTime());
+		setTimeout(generateRecruits, originalTime + 600 - new Date().getTime());
 	}
 }
 
