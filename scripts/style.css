@@ -10,8 +10,7 @@
 	height: 80px;
 }
 BODY{
-	background-image: url("https://canineanimal.github.io/GDRecruit/planes.png");
-	background-size: cover;
+	background-color: rgb(205,205,255);
 }
 A{
 	color: rgb(0,0,84);
