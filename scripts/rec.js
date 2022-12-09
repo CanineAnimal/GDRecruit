@@ -1,7 +1,8 @@
+var tf = 8;
 var time = 6;
 var nats = [];
-var originalTime2;
 var notify = true;
+var originalTime2;
 var originalTime;
 var tem;
 var nat;
@@ -80,6 +81,10 @@ function generateRecruits(fromBut){
 	if(fromBut){
 		originalTime2 = (new Date()).getTime();
 	}
+	if(fd + 47336400 > (new Date()).getTime()/1000){
+		time = ((13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7)) * tf + 1;
+	}
+	tf = 0;
 	
 	var nations = [];
 	var request2;
@@ -93,6 +98,7 @@ function generateRecruits(fromBut){
 		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item]) == -1){
 			nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
 			nats[nats.length] = nations[nations.length - 1];
+			tf++;
 		}
 	}
 	
@@ -100,9 +106,6 @@ function generateRecruits(fromBut){
 		link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
 		for(var item = 0; item < Math.min(8, nations.length); item++){
 			link += nations[item] + ',';
-		}
-		if(fd + 47336400 > (new Date()).getTime()/1000){
-			time = ((13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7)) * nations.length + 1;
 		}
 		setTimeout(postRecruits, originalTime2 + time * 1000 - new Date().getTime());
 	}else{
