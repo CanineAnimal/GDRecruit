@@ -6,7 +6,6 @@ var originalTime;
 var tem;
 var nat;
 var fd;
-
 function login(){
 	nat = document.querySelector('#NATION').value;
 	tem = document.querySelector('#TEMPLATE').value;
@@ -15,14 +14,12 @@ function login(){
 	request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nat + '&q=region+foundedtime', false);
 	request.send();
 	originalTime = (new Date()).getTime();
-	
 	if(request.responseXML.querySelector('REGION').innerHTML == 'Greater Dienstad'){
 		var request2 = new XMLHttpRequest();
 		request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?a=verify&nation=' + nat + '&checksum=' + verif, false);
 		while((new Date()).getTime() <= originalTime + 600){};
 		request2.send();
 		originalTime = (new Date()).getTime();
-		
 		if (request2.responseText.indexOf('1') != -1){
 			document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
 			fd = eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML);
@@ -34,7 +31,6 @@ function login(){
 		document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: Nation is not an authorised recruiter for Greater Dienstad.</SPAN>'
 	}
 }
-
 function start(){
 	var nations = [];
 	var request2;
@@ -43,17 +39,14 @@ function start(){
 	while((new Date()).getTime() < originalTime + 0.6){};
 	request2.send();
 	originalTime = (new Date()).getTime();
-	
 	for (var item = 0; item < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length); item++){
 		nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
 	}
-	
 	link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
 	for(var item = 0; item < Math.min(8, nations.length); item++){
 		link += nations[item] + ',';
 		nats[nats.length] = nations[item];
 	}
-	
 	link += '&message=' + tem;
 	time = ((13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7)) * Math.min(8, nations.length) + 1;
 	
@@ -63,7 +56,6 @@ function start(){
 		document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 	}
 }
-
 function recBut(){
 	if(document.querySelector('#SOUND').checked){
 		document.body.innerHTML = '<BUTTON CLASS="TG" ONCLICK="initiateRecruitGeneration()">Acknowledge</BUTTON><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
@@ -71,7 +63,6 @@ function recBut(){
 		document.body.innerHTML = '<BUTTON CLASS="TG" ONCLICK="initiateRecruitGeneration()">Acknowledge</BUTTON><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 	}
 }
-
 function initiateRecruitGeneration(){
 	setTimeout(generateRecruits, originalTime + 600 - new Date().getTime());
 }
@@ -81,11 +72,6 @@ function generateRecruits(){
 	}else{
 		document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 	}
-	
-	if(fromBut){
-		originalTime2 = (new Date()).getTime();
-	}
-
 	var nations = [];
 	var request2;
 	request2 = new XMLHttpRequest();
@@ -101,7 +87,6 @@ function generateRecruits(){
 			tf++;
 		}
 	}
-	
 	if(nations.length > 0){
 		link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
 		for(var item = 0; item < Math.min(8, nations.length); item++){
