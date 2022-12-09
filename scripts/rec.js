@@ -84,7 +84,6 @@ function generateRecruits(fromBut){
 	if(fd + 47336400 > (new Date()).getTime()/1000){
 		time = ((13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7)) * tf + 1;
 	}
-	tf = 0;
 	
 	var nations = [];
 	var request2;
@@ -94,6 +93,7 @@ function generateRecruits(fromBut){
 	request2.send();
 	originalTime = (new Date()).getTime();
 	
+	tf = 0;
 	for (var item = 0; item < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length); item++){
 		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item]) == -1){
 			nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
