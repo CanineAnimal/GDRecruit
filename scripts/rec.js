@@ -81,7 +81,7 @@ function generateRecruits(fromBut){
 		originalTime2 = (new Date()).getTime();
 	}
 	if(fd + 47336400 > (new Date()).getTime()/1000){
-		time = ((13.25 - (fd - (new Date()).getTime()/1000) * 10**-7)) * nats.length + 1;
+		time = ((13.25 - (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7)) * nats.length + 1;
 	}
 	
 	var nations = [];
