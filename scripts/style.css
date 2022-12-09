@@ -1,6 +1,5 @@
 *{
 	font-family: Arial, sans-serif;
-	opacity: 0.3;
 }
 .TG{
 	background: black;
@@ -11,7 +10,8 @@
 	height: 80px;
 }
 BODY{
-	background-image: url("https://canineanimal.github.io/GDRecruit/image.png");
+	background-image: url("https://canineanimal.github.io/GDRecruit/planes.png");
+	background-size: cover;
 }
 A{
 	color: rgb(0,0,84);
