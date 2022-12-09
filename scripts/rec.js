@@ -1,5 +1,5 @@
-var nats = [];
 var time = 6;
+var nats = [];
 var originalTime2;
 var notify = true;
 var originalTime;
