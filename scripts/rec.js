@@ -14,7 +14,9 @@ function login(){
 	request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nat + '&q=region+foundedtime', false);
 	request.send();
 	originalTime = (new Date()).getTime();
-	if(request.responseXML.querySelector('REGION').innerHTML == 'Greater Dienstad'){
+	if(request.status == 404){
+		document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: No such nation exists. Please make sure that you have entered your nation name correctly.</SPAN>'
+	}else if(request.responseXML.querySelector('REGION').innerHTML == 'Greater Dienstad'){
 		var request2 = new XMLHttpRequest();
 		request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?a=verify&nation=' + nat + '&checksum=' + verif, false);
 		while((new Date()).getTime() <= originalTime + 600){};
@@ -59,17 +61,16 @@ function login(){
 		document.body.innerHTML = '<BUTTON CLASS="TG" ONCLICK="initiateRecruitGeneration()">Acknowledge</BUTTON><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 	}
 }function initiateRecruitGeneration(){
-	if(fd + 47336400 > (new Date()).getTime()/1000){
+	if(document.querySelector('#SOUND').checked){
+		document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
+	}else{
+		document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
+	}if(fd + 47336400 > (new Date()).getTime()/1000){
 		setTimeout(generateRecruits, 1000 * (13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7) * Math.min(8, nations.length) + 1);
 	}else{
 		setTimeout(generateRecruits, 6);
 	}
 }function generateRecruits(){
-	if(document.querySelector('#SOUND').checked){
-		document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
-	}else{
-		document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
-	}
 	nations = [];
 	var request2;
 	request2 = new XMLHttpRequest();
@@ -82,8 +83,7 @@ function login(){
 			nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
 			nats[nats.length] = nations[nations.length - 1];
 		}
-	}
-	if(nations.length > 0){
+	}if(nations.length > 0){
 		link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
 		for(var item = 0; item < Math.min(8, nations.length); item++){
 			link += nations[item] + ',';
