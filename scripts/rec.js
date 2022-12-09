@@ -92,7 +92,7 @@ function generateRecruits(fromBut){
 	for (var item = 0; item < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length); item++){
 		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item]) == -1){
 			nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
-			nats[nats.length] = nations[item - 1];
+			nats[nats.length] = nations[nations.length - 1];
 		}
 	}
 	
