@@ -5,10 +5,12 @@ A{
 	color: rgb(0,0,84);
 }
 .TG{
+	display: block;
 	background: black;
 	color: white;
 	font-size: 16pt;
 	border: 20px solid black;
 	text-align: center;
 	text-decoration: none;
+	width: 30%;
 }
