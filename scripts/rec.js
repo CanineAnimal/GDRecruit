@@ -60,7 +60,7 @@ function login(){
 	}
 }function initiateRecruitGeneration(){
 	if(fd + 47336400 > (new Date()).getTime()/1000){
-		setTimeout(generateRecruits, (13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7) * Math.min(8, nations.length) + 1);
+		setTimeout(generateRecruits, 1000 * (13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7) * Math.min(8, nations.length) + 1);
 	}else{
 		setTimeout(generateRecruits, 6);
 	}
