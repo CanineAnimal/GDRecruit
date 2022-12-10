@@ -10,16 +10,19 @@ Once you do this, your telegram page should show you a telegram template code, w
 To recruit, first visit [this page](https://canineanimal.github.io/GDRecruit/pages/rec.html). There, enter your GD nation, the telegram template code, and a verification code (which you can generate by pressing the link in the login page while logged into your GD nation in NationStates), and click the "Log in" button.
 
 Assuming you have set up correctly and received permission to recruit, this will change to a white screen with a button saying "Recruit". Click this while logged into your GD nation -- it will send you to your telegram page in a new tab, with both the recipients and telegram message filled in. Then press "Send" on the telegram page, and press the "Acknowledge" button in the GDRecruit page.
-
+_______________
 ![Fig 1. Recruitment button.](https://i.imgur.com/g5QvNCu.png "Fig 1. Recruitment button.")
+
 Fig 1. Recruitment button.
-
+_______________
 ![Fig 2. Acknowledge button.](https://i.imgur.com/LRgDkGM.png "Fig 2. Acknowledge button.")
+
 Fig 2. Acknowledge button.
-
+_______________
 Each few minutes or so, the loading text will change to the "Recruit" button, which you use as directed above. A short ringtone will also be played when it is ready -- you can turn this off by unchecking the "Notify" checkbox in the GDRecruit page.
-
+_______________
 ![Fig 3. Loading screen.](https://i.imgur.com/2gwwCj7.png "Fig 3. Loading screen.")
-Fig 3. Loading screen.
 
+Fig 3. Loading screen.
+_______________
 To finish recruiting, simply close your GDRecruit tab.
