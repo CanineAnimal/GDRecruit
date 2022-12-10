@@ -14,11 +14,13 @@ Assuming you have set up correctly and received permission to recruit, this will
 ------------------------
 ![Fig 1. Recruitment button.](https://i.imgur.com/g5QvNCu.png "Fig 1. Recruitment button.")
 Fig 1. Recruitment button.
+
 ------------------------
 
 ------------------------
 ![Fig 2. Acknowledge button.](https://i.imgur.com/LRgDkGM.png "Fig 2. Acknowledge button.")
 Fig 2. Acknowledge button.
+
 ------------------------
 
 Each few minutes or so, the loading text will change to the "Recruit" button, which you use as directed above. A short ringtone will also be played when it is ready -- you can turn this off by unchecking the "Notify" checkbox in the GDRecruit page.
@@ -26,6 +28,7 @@ Each few minutes or so, the loading text will change to the "Recruit" button, wh
 ------------------------
 ![Fig 3. Loading screen.](https://i.imgur.com/2gwwCj7.png "Fig 3. Loading screen.")
 Fig 3. Loading screen.
+
 ------------------------
 
 To finish recruiting, simply close your GDRecruit tab.
