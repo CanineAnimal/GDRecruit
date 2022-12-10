@@ -23,6 +23,11 @@ function login(){
 			document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: No such nation exists. Please make sure that you have entered your nation name correctly.</SPAN>'
 		}else if(request.responseText.indexOf('1') != -1){
 			document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
+			request = new XMLHttpRequest();
+			request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nat + '&q=region', false);
+			while((new Date()).getTime() < originalTime + 600){};
+			request.send();
+			originalTime = (ner Date()).getTime();
 			fd = eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML);
 			start();
 		}else{
