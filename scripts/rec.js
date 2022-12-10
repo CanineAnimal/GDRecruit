@@ -10,27 +10,24 @@ function login(){
 	nat = document.querySelector('#NATION').value;
 	tem = document.querySelector('#TEMPLATE').value;
 	verif = document.querySelector('#VERIF').value;
-	var request = new XMLHttpRequest();
-	request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nat + '&q=region+foundedtime', false);
-	request.send();
-	originalTime = (new Date()).getTime();
-	if(request.status == 404){
-		document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: No such nation exists. Please make sure that you have entered your nation name correctly.</SPAN>'
-	}else if(request.responseXML.querySelector('REGION').innerHTML == 'Greater Dienstad'){
-		var request2 = new XMLHttpRequest();
-		request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?a=verify&nation=' + nat + '&checksum=' + verif, false);
-		while((new Date()).getTime() <= originalTime + 600){};
-		request2.send();
+	
+	if(['the_ice_states', 'the_macabees', 'holy_marsh'].indexOf(nat.toLowerCase().replaceAll(' ', '_')) == -1){
+		document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: Nation is not an authorised recruiter for Greater Dienstad.</SPAN>'
+	}else{
+		var request = new XMLHttpRequest();
+		request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?a=verify&nation=' + nat + '&checksum=' + verif, false);
+		request.send();
 		originalTime = (new Date()).getTime();
-		if (request2.responseText.indexOf('1') != -1){
+		
+		if(request.status == 404){
+			document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: No such nation exists. Please make sure that you have entered your nation name correctly.</SPAN>'
+		}else if(responseText.indexOf('1') != -1){
 			document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
 			fd = eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML);
 			start();
 		}else{
-			document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: Verification code is incorrect. Please make sure that you have entered your nation name and verification code correctly. Regenerate a verification code using the same link.</SPAN>'
+			document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: Verification code is incorrect. Please make sure that you have entered your nation name and verification code correctly. Regenerate a verification code using the same link.</SPAN>';
 		}
-	}else{
-		document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: Nation is not an authorised recruiter for Greater Dienstad.</SPAN>'
 	}
 }function start(){
 	nations = [];
