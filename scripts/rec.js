@@ -21,7 +21,7 @@ function login(){
 		
 		if(request.status == 404){
 			document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: No such nation exists. Please make sure that you have entered your nation name correctly.</SPAN>'
-		}else if(responseText.indexOf('1') != -1){
+		}else if(request.responseText.indexOf('1') != -1){
 			document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
 			fd = eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML);
 			start();
