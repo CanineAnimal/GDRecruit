@@ -10,7 +10,6 @@ function login(){
 	nat = document.querySelector('#NATION').value;
 	tem = document.querySelector('#TEMPLATE').value;
 	verif = document.querySelector('#VERIF').value;
-	
 	if(['the_ice_states', 'the_macabees', 'holy_marsh'].indexOf(nat.toLowerCase().replaceAll(' ', '_')) == -1){
 		document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: Nation is not an authorised recruiter for Greater Dienstad.</SPAN>'
 	}else{
@@ -18,7 +17,6 @@ function login(){
 		request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?a=verify&nation=' + nat + '&checksum=' + verif, false);
 		request.send();
 		originalTime = (new Date()).getTime();
-		
 		if(request.status == 404){
 			document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: No such nation exists. Please make sure that you have entered your nation name correctly.</SPAN>'
 		}else if(request.responseText.indexOf('1') != -1){
@@ -27,7 +25,7 @@ function login(){
 			request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nat + '&q=region', false);
 			while((new Date()).getTime() < originalTime + 600){};
 			request.send();
-			originalTime = (ner Date()).getTime();
+			originalTime = (new Date()).getTime();
 			fd = eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML);
 			start();
 		}else{
