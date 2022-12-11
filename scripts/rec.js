@@ -78,8 +78,8 @@ function generateRecruits(){
 	originalTime = (new Date()).getTime();
 	for (var item = 0; item < request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length; item++){
 		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item]) == -1){
-			nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item] + ',';
-			nats[nats.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item];
+			nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item] + ',';
+			nats[nats.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
 		}
 		if(nations.length == 8){break};
 	}if(nations.length > 0){
