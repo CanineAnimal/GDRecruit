@@ -41,20 +41,19 @@ function login(){
 	for (var item = 0; item < request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length; item++){
 		nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
 		nats[nats.length] = nations[item];
-		console.log(item);
+		var mkNat = true;
 		for(var jtem = 0; jtem <= nations[item].length/2; jtem++){
 			part = nations[item].substr(item, 0.5 + jtem + nations[item].length/2);
 			if(nats.length){
 				for(var ktem = 0; ktem < nats.length; ktem++){
-					if(nats[ktem].indexOf(part) == -1 || nats[ktem].length > 2 * part.length){
-						link += nations[item] + ',';
-						console.log(nations[item]);
+					if(nats[ktem].indexOf(part) != -1 && nats[ktem].length > 2 * part.length){
+						mkNat = false;
 					}
 				}
-			}else{
-				link += nations[item] + ',';
 			}
 		}
+		console.log(mkNat);
+		if(mkNat){link += nations[item] + ','};
 		if(nats.length == 8){break};
 	}
 	if(document.querySelector('#SOUND').checked){
@@ -88,14 +87,18 @@ function login(){
 	originalTime = (new Date()).getTime();
 	for (var item = 0; item < request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length; item++){
 		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item]) == -1){
+			var mkNat = true;
 			for(var jtem = 0; jtem <= request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item].length/2; jtem++){
 				part = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item].substr(item, 0.5 + jtem + nations[item].length/2);
 				for(var ktem = 0; ktem < nats.length; ktem++){
-					if(nats[ktem].indexOf(part) == -1 || nats[ktem].length > 2 * part.length){
-						nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item] + ',';
-						nats[nats.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item];
+					if(nats[ktem].indexOf(part) != -1 && nats[ktem].length > 2 * part.length){
+						mkNat = false;
 					}
 				}
+			}
+			if(mkNat){
+				nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item] + ',';
+				nats[nats.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item];
 			}
 		}
 		if(nations.length == 8){break};
