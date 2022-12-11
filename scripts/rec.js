@@ -52,7 +52,7 @@ function login(){
 				}
 			}
 		}
-		console.log(mkNat);
+		console.log(nations[item] + ':' + str(mkNat));
 		if(mkNat){link += nations[item] + ','};
 		if(nats.length == 8){break};
 	}
