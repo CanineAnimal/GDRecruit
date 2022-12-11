@@ -17,9 +17,9 @@ function login(){
 		request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?a=verify&nation=' + nat + '&checksum=' + verif, false);
 		request.send();
 		originalTime = (new Date()).getTime();
-		if(request.status == 404){
-			document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: No such nation exists. Please make sure that you have entered your nation name correctly.</SPAN>'
-		}else if(request.responseText.indexOf('1') != -1){
+		if(request.responseText.indexOf('1') == -1){
+			document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: Verification code is incorrect. Please make sure that you have entered your nation name and verification code correctly. Regenerate a verification code using the same link.</SPAN>';
+		}else{
 			document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
 			request = new XMLHttpRequest();
 			request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nat + '&q=foundedtime', false);
@@ -28,12 +28,10 @@ function login(){
 			originalTime = (new Date()).getTime();
 			fd = eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML);
 			start();
-		}else{
-			document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: Verification code is incorrect. Please make sure that you have entered your nation name and verification code correctly. Regenerate a verification code using the same link.</SPAN>';
 		}
 	}
 }function start(){
-	nations = [];
+	link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
 	var request2;
 	request2 = new XMLHttpRequest();
 	request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations', false);
@@ -43,16 +41,23 @@ function login(){
 	for (var item = 0; item < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length); item++){
 		nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
 	}
-	link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
-	for(var item = 0; item < Math.min(8, nations.length); item++){
-		link += nations[item] + ',';
-		nats[nats.length] = nations[item];
+	var item = 0;
+	while(nats.length < Math.min(8, nations.length)){
+		for(var jtem = 0; jtem <= nations[item].length/2; jtem++){
+			part = nations[item].substr(item, 0.5 + jtem + nations[item].length/2);
+			for(var ktem = 0; ktem < nats.length; ktem++){
+				if(nats[ktem].indexOf(part) == -1 || nats[ktem].length > 2 * part.length){
+					link += nations[item] + ',';
+					nats[nats.length] = nations[item];
+				}
+			}
+		}
+		item ++;
 	}
-	link += '&message=' + tem;
 	if(document.querySelector('#SOUND').checked){
-		document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
+		document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '&message=' + tem + " ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
 	}else{
-		document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
+		document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '&message=' + tem + " ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 	}
 }function recBut(){
 	if(document.querySelector('#SOUND').checked){
@@ -88,13 +93,25 @@ function login(){
 		for(var item = 0; item < Math.min(8, nations.length); item++){
 			link += nations[item] + ',';
 		}
-		link += '&message=' + tem;
 		if(document.querySelector('#SOUND').checked){
-			document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify <AUDIO AUTOPLAY><SOURCE SRC="https://canineanimal.github.io/GDRecruit/ring.mp3" TYPE="audio/mpeg"></AUDIO>';
+			document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '&message=' + tem + " ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
 		}else{
-			document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
+			document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '&message=' + tem + " ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify';
 		}
 	}else{
 		setTimeout(generateRecruits, originalTime + 600 - new Date().getTime());
+	}
+	var item = 0;
+	while(nations.length < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length)){
+		for(var jtem = 0; jtem <= request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item].length/2; jtem++){
+			part = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item].substr(item, 0.5 + jtem + nations[item].length/2);
+			for(var ktem = 0; ktem < nats.length; ktem++){
+				if(nats[ktem].indexOf(part) == -1 || nats[ktem].length > 2 * part.length){
+					nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item] + ',';
+					nats[nats.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item];
+				}
+			}
+		}
+		item ++;
 	}
 }
