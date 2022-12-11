@@ -1,9 +1,11 @@
 *{
 	font-family: Arial, sans-serif;
 }
+
 A{
-	color: rgb(0,0,84);
+	color: rgb(100, 100, 184);
 }
+
 .TG{
 	display: block;
 	background: black;
@@ -14,6 +16,11 @@ A{
 	text-decoration: none;
 	width: 30%;
 }
+
 IMG{
 	border:5px solid black;
+}
+
+.ERROR{
+	color: rgb(184,100,100);
 }
