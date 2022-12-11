@@ -55,7 +55,7 @@ function login(){
 				link += nations[item] + ',';
 			}
 		}
-		if(nats.length = 8){break};
+		if(nats.length == 8){break};
 	}
 	if(document.querySelector('#SOUND').checked){
 		document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '&message=' + tem + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
@@ -98,7 +98,7 @@ function login(){
 				}
 			}
 		}
-		if(nations.length = 8){break};
+		if(nations.length == 8){break};
 	}if(nations.length > 0){
 		link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
 		for(var item = 0; item < Math.min(8, nations.length); item++){
