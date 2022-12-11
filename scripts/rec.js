@@ -88,7 +88,7 @@ function login(){
 	for (var item = 0; item < request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length; item++){
 		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item]) == -1){
 			var mkNat = true;
-			for(var jtem = 0; jtem <= request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item].length/2; jtem++){
+			for(var jtem = 0; jtem <= request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item].length/2; jtem++){
 				part = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item].substr(item, 0.5 + jtem + nations[item].length/2);
 				for(var ktem = 0; ktem < nats.length; ktem++){
 					if(nats[ktem].indexOf(part) != -1 && nats[ktem].length > 2 * part.length){
