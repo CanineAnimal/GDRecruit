@@ -40,18 +40,17 @@ function login(){
 	originalTime = (new Date()).getTime();
 	for (var item = 0; item < request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length; item++){
 		nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
+		nats[nats.length] = nations[item];
 		for(var jtem = 0; jtem <= nations[item].length/2; jtem++){
 			part = nations[item].substr(item, 0.5 + jtem + nations[item].length/2);
 			if(nats.length){
 				for(var ktem = 0; ktem < nats.length; ktem++){
 					if(nats[ktem].indexOf(part) == -1 || nats[ktem].length > 2 * part.length){
 						link += nations[item] + ',';
-						nats[nats.length] = nations[item];
 					}
 				}
 			}else{
 				link += nations[item] + ',';
-					nats[nats.length] = nations[item];
 			}
 		}
 		if(nats.length = 8){break};
