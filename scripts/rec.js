@@ -22,7 +22,7 @@ function login(){
 		}else if(request.responseText.indexOf('1') != -1){
 			document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
 			request = new XMLHttpRequest();
-			request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nat + '&q=region', false);
+			request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nat + '&q=foundedtime', false);
 			while((new Date()).getTime() < originalTime + 600){};
 			request.send();
 			originalTime = (new Date()).getTime();
