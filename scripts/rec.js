@@ -54,7 +54,7 @@ function login(){
 		}
 		console.log(nations[item] + ': ' + mkNat);
 		if(mkNat){link += nations[item] + ','};
-		if(nats.length == 8){break};
+		if(link.split(',').length == 9){break};
 	}
 	if(document.querySelector('#SOUND').checked){
 		document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '&message=' + tem + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
