@@ -39,10 +39,12 @@ function start(){
 	while((new Date()).getTime() < originalTime + 600){};
 	request2.send();
 	originalTime = (new Date()).getTime();
-	for (var item = 0; item < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length); item++){
-		nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
+	for (var item = 0; item < request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length; item++){
+		if(item < 8){
+			nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
+			link += nations[item] + ',';
+		}
 		nats[nats.length] = nations[item];
-		link += nations[item] + ',';
 	}
 	if(document.querySelector('#SOUND').checked){
 		document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '&message=' + tem + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
