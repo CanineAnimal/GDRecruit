@@ -38,11 +38,8 @@ function login(){
 	while((new Date()).getTime() < originalTime + 600){};
 	request2.send();
 	originalTime = (new Date()).getTime();
-	for (var item = 0; item < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length); item++){
+	for (var item = 0; item < request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length; item++){
 		nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
-	}
-	var item = 0;
-	while(nats.length < Math.min(8, nations.length)){
 		for(var jtem = 0; jtem <= nations[item].length/2; jtem++){
 			part = nations[item].substr(item, 0.5 + jtem + nations[item].length/2);
 			for(var ktem = 0; ktem < nats.length; ktem++){
@@ -52,7 +49,7 @@ function login(){
 				}
 			}
 		}
-		item ++;
+		if(nats.length = 8){break};
 	}
 	if(document.querySelector('#SOUND').checked){
 		document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '&message=' + tem + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
@@ -83,11 +80,19 @@ function login(){
 	while((new Date()).getTime() < originalTime + 600){};
 	request2.send();
 	originalTime = (new Date()).getTime();
-	for (var item = 0; item < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length); item++){
+	for (var item = 0; item < request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length; item++){
 		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item]) == -1){
-			nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
-			nats[nats.length] = nations[nations.length - 1];
+			for(var jtem = 0; jtem <= request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item].length/2; jtem++){
+				part = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item].substr(item, 0.5 + jtem + nations[item].length/2);
+				for(var ktem = 0; ktem < nats.length; ktem++){
+					if(nats[ktem].indexOf(part) == -1 || nats[ktem].length > 2 * part.length){
+						nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item] + ',';
+						nats[nats.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item];
+					}
+				}
+			}
 		}
+		if(nations.length = 8){break};
 	}if(nations.length > 0){
 		link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
 		for(var item = 0; item < Math.min(8, nations.length); item++){
@@ -100,18 +105,5 @@ function login(){
 		}
 	}else{
 		setTimeout(generateRecruits, originalTime + 600 - new Date().getTime());
-	}
-	var item = 0;
-	while(nations.length < Math.min(8, request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length)){
-		for(var jtem = 0; jtem <= request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item].length/2; jtem++){
-			part = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item].substr(item, 0.5 + jtem + nations[item].length/2);
-			for(var ktem = 0; ktem < nats.length; ktem++){
-				if(nats[ktem].indexOf(part) == -1 || nats[ktem].length > 2 * part.length){
-					nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item] + ',';
-					nats[nats.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length[item];
-				}
-			}
-		}
-		item ++;
 	}
 }
