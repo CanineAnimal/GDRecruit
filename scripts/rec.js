@@ -14,7 +14,7 @@ function login(){
 		document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: Nation is not an authorised recruiter for Greater Dienstad.</SPAN>'
 	}else{
 		var request = new XMLHttpRequest();
-		request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?a=verify&nation=' + nat + '&checksum=' + verif, false);
+		request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?a=verify&nation=' + nat + '&checksum=' + verif + '&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
 		request.send();
 		originalTime = (new Date()).getTime();
 		if(request.responseText.indexOf('1') == -1){
@@ -22,7 +22,7 @@ function login(){
 		}else{
 			document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify';
 			request = new XMLHttpRequest();
-			request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nat + '&q=foundedtime', false);
+			request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nat + '&q=foundedtime' + '&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
 			while((new Date()).getTime() < originalTime + 600){};
 			request.send();
 			originalTime = (new Date()).getTime();
@@ -35,7 +35,7 @@ function start(){
 	link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
 	var request2;
 	request2 = new XMLHttpRequest();
-	request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations', false);
+	request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations' + '&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
 	while((new Date()).getTime() < originalTime + 600){};
 	request2.send();
 	originalTime = (new Date()).getTime();
@@ -74,7 +74,7 @@ function generateRecruits(){
 	nations = [];
 	var request2;
 	request2 = new XMLHttpRequest();
-	request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations', false);
+	request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations' + '&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
 	while((new Date()).getTime() < originalTime + 600){};
 	request2.send();
 	originalTime = (new Date()).getTime();
