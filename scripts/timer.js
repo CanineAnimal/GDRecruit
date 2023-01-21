@@ -3,7 +3,7 @@ document.querySelector('BUTTON').onclick = function(){
 	if(nation == ''){
 		alert('Please enter your nation name to proceed.')
 	}else{
-		document.querySelector('#LOADING'>
+		document.querySelector('#LOADING').innerHTML = 'Loading...'
 		var regrequest = new XMLHttpRequest();
 		regrequest.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?region=greater_dienstad&q=nations&user_agent=GDRecruit by the Ice States used by ' + nation, false);
 		regrequest.send();
