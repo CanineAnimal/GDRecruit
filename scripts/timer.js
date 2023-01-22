@@ -14,7 +14,7 @@ document.querySelector('BUTTON').onclick = function(){
 				var request = new XMLHttpRequest();
 				request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nations[item] + '&q=lastlogin&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nation, false);
 				request.send();
-				if((((new Date()).getTime()/1000 - eval(request.responseXML.querySelector('LASTLOGIN').innerHTML) > 237600) && ((new Date()).getTime()/1000 - eval(request.responseXML.querySelector('LASTLOGIN').innerHTML) < 246240)) || ((new Date()).getTime()/1000 - eval(request.responseXML.querySelector('LASTLOGIN').innerHTML) > 5140800)){
+				if((((new Date()).getTime()/1000 - eval(request.responseXML.querySelector('LASTLOGIN').innerHTML) > 2376000) && ((new Date()).getTime()/1000 - eval(request.responseXML.querySelector('LASTLOGIN').innerHTML) < 2462400)) || ((new Date()).getTime()/1000 - eval(request.responseXML.querySelector('LASTLOGIN').innerHTML) > 5140800)){
 					document.body.querySelector('#OUTPUT').innerHTML += nations[item] + ' will CTE next update! Oh dear. <BR/>';
 				}
 				item++;
