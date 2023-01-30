@@ -22,7 +22,7 @@ function whitelist(victim){
 function add2blacklist(){
 	var victim = document.querySelector('#VICTIM').value;
 	if(victim){
-		blacklist[blacklist.length] = victi;
+		blacklist[blacklist.length] = victim;
 		for(var item = 0; item < blacklist.length; item++){
 			blacklistHTML += '<TR><TD>' + blacklist[item] + '</TD><TD><BUTTON ONCLICK="whitelist(' + item + ')" CLASS="WHITELIST">X</BUTTON></TD></TR>';
 		}
