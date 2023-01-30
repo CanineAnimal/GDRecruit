@@ -125,17 +125,6 @@ function generateRecruits(){
 				nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
 				link += nations[item] + ',';
 			}
-			if(nations.length < 8){
-				var blacklisted = false;
-				for(var jtem = 0; jtem < blacklist.length; jtem++){
-					if(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item].indexOf(blacklist[jtem]) != -1){
-						blacklisted = true;
-					}
-				}
-				if(!blacklisted){
-					nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
-				}
-			};
 			nats[nats.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
 		}
 	}if(nations.length > 0){
