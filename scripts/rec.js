@@ -9,19 +9,26 @@ var tem;
 var nat;
 var fd;
 for(var item = 0; item < blacklist.length; item++){
-	blacklistHTML += '<TR><TD>' + blacklist[item] + '</TD><TD><BUTTON ONCLICK="whitelist(' + item +')" CLASS="WHITELIST">X</BUTTON></TD></TR>';
+	blacklistHTML += '<TR><TD>' + blacklist[item] + '</TD><TD><BUTTON ONCLICK="whitelist(' + item + ')" CLASS="WHITELIST">X</BUTTON></TD></TR>';
 }
 
 function whitelist(victim){
 	blacklist.pop(eval(victim));
 	for(var item = 0; item < blacklist.length; item++){
-		blacklistHTML += '<TR><TD>' + blacklist[item] + '</TD><TD><BUTTON ONCLICK="whitelist(' + item +')" CLASS="WHITELIST">X</BUTTON></TD></TR>';
+		blacklistHTML += '<TR><TD>' + blacklist[item] + '</TD><TD><BUTTON ONCLICK="whitelist(' + item + ')" CLASS="WHITELIST">X</BUTTON></TD></TR>';
 	}
+	document.querySelector('TBODY').innerHTML = blacklistHTML;
 }
-function add2blacklist(victim){
-	blacklist[blacklist.length] = victim;
-	for(var item = 0; item < blacklist.length; item++){
-		blacklistHTML += '<TR><TD>' + blacklist[item] + '</TD><TD><BUTTON ONCLICK="whitelist(' + item +')" CLASS="WHITELIST">X</BUTTON></TD></TR>';
+function add2blacklist(){
+	var victim = document.querySelector('#VICTIM').value;
+	if(victim){
+		blacklist[blacklist.length] = victi;
+		for(var item = 0; item < blacklist.length; item++){
+			blacklistHTML += '<TR><TD>' + blacklist[item] + '</TD><TD><BUTTON ONCLICK="whitelist(' + item + ')" CLASS="WHITELIST">X</BUTTON></TD></TR>';
+		}
+		document.querySelector('TBODY').innerHTML = blacklistHTML;
+	}else{
+		alert('No string entered to blacklist.')
 	}
 }
 function login(){
