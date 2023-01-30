@@ -18,7 +18,7 @@ function whitelist(victim){
 	for(var item = 0; item < blacklist.length; item++){
 		blacklistHTML += '<TR><TD>' + blacklist[item] + '</TD><TD><BUTTON ONCLICK="whitelist(' + item + ')" CLASS="WHITELIST">X</BUTTON></TD></TR>';
 	}
-	document.querySelector('TBODY').innerHTML = blacklistHTML;
+	document.querySelector('TBODY').innerHTML = blacklistHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR>';
 }
 function add2blacklist(){
 	var victim = document.querySelector('#VICTIM').value;
@@ -28,7 +28,7 @@ function add2blacklist(){
 		for(var item = 0; item < blacklist.length; item++){
 			blacklistHTML += '<TR><TD>' + blacklist[item] + '</TD><TD><BUTTON ONCLICK="whitelist(' + item + ')" CLASS="WHITELIST">X</BUTTON></TD></TR>';
 		}
-		document.querySelector('TBODY').innerHTML = blacklistHTML;
+		document.querySelector('TBODY').innerHTML = blacklistHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR>';
 	}else{
 		alert('No string entered to blacklist.')
 	}
