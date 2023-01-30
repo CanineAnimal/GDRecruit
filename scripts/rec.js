@@ -1,6 +1,7 @@
 var nats = [];
 var nations = [];
 var notify = true;
+var blacklist = ['frostland', 'farmer'];
 var originalTime2;
 var originalTime;
 var tem;
@@ -40,9 +41,17 @@ function start(){
 	request2.send();
 	originalTime = (new Date()).getTime();
 	for (var item = 0; item < request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length; item++){
-		if(item < 8){
-			nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
-			link += nations[item] + ',';
+		if(nations.length < 8){
+			var blacklisted = false;
+			for(var jtem = 0; jtem < blacklist.length; jtem++){
+				if(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item].indexOf(blacklist[jtem]) != -1){
+					blacklisted = true;
+				}
+			}
+			if(!blacklisted){
+				nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
+				link += nations[item] + ',';
+			}
 		}
 		nats[nats.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
 	}
@@ -80,7 +89,27 @@ function generateRecruits(){
 	originalTime = (new Date()).getTime();
 	for (var item = 0; item < request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length; item++){
 		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item]) == -1){
-			if(nations.length < 8){nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item]};
+			var blacklisted = false;
+			for(var jtem = 0; jtem < blacklist.length; jtem++){
+				if(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item].indexOf(blacklist[jtem]) != -1){
+					blacklisted = true;
+				}
+			}
+			if(!blacklisted){
+				nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
+				link += nations[item] + ',';
+			}
+			if(nations.length < 8){
+				var blacklisted = false;
+				for(var jtem = 0; jtem < blacklist.length; jtem++){
+					if(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item].indexOf(blacklist[jtem]) != -1){
+						blacklisted = true;
+					}
+				}
+				if(!blacklisted){
+					nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
+				}
+			};
 			nats[nats.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
 		}
 	}if(nations.length > 0){
