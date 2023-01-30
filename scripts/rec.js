@@ -2,15 +2,12 @@ var nats = [];
 var nations = [];
 var notify = true;
 var blacklistHTML = '';
-var blacklist = ['frostland', 'farmer'];
+var blacklist = [];
 var originalTime2;
 var originalTime;
 var tem;
 var nat;
 var fd;
-for(var item = 0; item < blacklist.length; item++){
-	blacklistHTML += '<TR><TD>' + blacklist[item] + '</TD><TD><BUTTON ONCLICK="whitelist(' + item + ')" CLASS="WHITELIST">X</BUTTON></TD></TR>';
-}
 
 function whitelist(victim){
 	blacklist.splice(eval(victim), 1);
