@@ -24,3 +24,13 @@ IMG{
 .ERROR{
 	color: rgb(184, 100, 100);
 }
+.WHITELIST{
+	background: pink;
+	color: red;
+}
+.BLACKLIST{
+	background: lime;
+	color: green;
+}
+TABLE, th, td{
+	border: black
