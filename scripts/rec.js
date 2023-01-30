@@ -14,6 +14,7 @@ for(var item = 0; item < blacklist.length; item++){
 
 function whitelist(victim){
 	blacklist.pop(eval(victim));
+	blacklistHTML = '';
 	for(var item = 0; item < blacklist.length; item++){
 		blacklistHTML += '<TR><TD>' + blacklist[item] + '</TD><TD><BUTTON ONCLICK="whitelist(' + item + ')" CLASS="WHITELIST">X</BUTTON></TD></TR>';
 	}
@@ -21,6 +22,7 @@ function whitelist(victim){
 }
 function add2blacklist(){
 	var victim = document.querySelector('#VICTIM').value;
+	blacklistHTML = '';
 	if(victim){
 		blacklist[blacklist.length] = victim;
 		for(var item = 0; item < blacklist.length; item++){
