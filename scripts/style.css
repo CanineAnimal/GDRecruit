@@ -32,5 +32,6 @@ IMG{
 	background: lime;
 	color: green;
 }
-TABLE, th, td{
+TABLE, TH, TD{
 	border: black
+}
