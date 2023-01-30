@@ -117,7 +117,7 @@ function generateRecruits(){
 		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item]) == -1){
 			var blacklisted = false;
 			for(var jtem = 0; jtem < blacklist.length; jtem++){
-				if(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item].indexOf(blacklist[jtem].indexOf(blacklist[jtem].toLowerCase().replaceAll(' ', '_'))) != -1){
+				if(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item].indexOf(blacklist[jtem].toLowerCase().replaceAll(' ', '_')) != -1){
 					blacklisted = true;
 				}
 			}
