@@ -18,7 +18,7 @@ function whitelist(victim){
 		blacklistHTML += '<TR><TD>' + blacklist[item] + '</TD><TD><BUTTON ONCLICK="whitelist(' + item +')" CLASS="WHITELIST">X</BUTTON></TD></TR>';
 	}
 }
-function blacklist(victim){
+function add2blacklist(victim){
 	blacklist[blacklist.length] = victim;
 	for(var item = 0; item < blacklist.length; item++){
 		blacklistHTML += '<TR><TD>' + blacklist[item] + '</TD><TD><BUTTON ONCLICK="whitelist(' + item +')" CLASS="WHITELIST">X</BUTTON></TD></TR>';
