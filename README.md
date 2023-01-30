@@ -29,3 +29,9 @@ _______________
 Fig 3. Loading screen.
 _______________
 To finish recruiting, simply close your GDRecruit tab.
+
+# Blacklisting strings
+To help avoid targeting obvious puppets for recruitment (thereby reducing wait between the sending of recruitment telegrams), you can blacklist strings, such that nations whose names include these strings will not be targeted for recruitment. For example, if a ton of nations named "Icestates-001", "Icestates-002" etc are being included in recruitment telegrams, blacklisting "Icestates-" will filter out these nations. It is recommended to avoid blacklisting excessively short strings, to avoid the Scunthorpe problem where unrelated nations will be filtered out due to having the string; it is preferible to have more nations receive the recruitment telegram in exchange for waiting slightly longer between recruitment telegrams, than to have potential recruits excluded.
+![Fig 4. String blacklist.](https://i.imgur.com/FRRSjso.png "Fig 4. String blacklist.")
+
+Fig 4. String blacklist.
