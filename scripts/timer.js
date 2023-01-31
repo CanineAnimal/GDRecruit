@@ -4,18 +4,17 @@ document.querySelector('BUTTON').onclick = function(){
 		alert('Please enter your nation name to proceed.')
 	}else{
 		document.querySelector('#LOADING').innerHTML = 'Loading...'
-		var regrequest = new XMLHttpRequest();
+		regrequest = new XMLHttpRequest();
 		regrequest.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?region=greater_dienstad&q=nations&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nation, false);
 		regrequest.send();
-		var nations = regrequest.responseXML.querySelector('NATIONS').innerHTML.split(':');
-		var item = 0;
-		var mins = (new Date()).getHours() * 60 + (new Date()).getMinutes();
-		var originalMins = mins;
-		var major = 60 * (new Date(1672553100000)).getHours() + (new Date(1672553100000)).getMinutes();
-		var minor = 60 * (new Date(1672508520000)).getHours() + (new Date(1672508520000)).getMinutes();
-		var nextMajor = (new Date());
-		var nextMinor = (new Date());
-		var nextIsMajor;
+		nations = regrequest.responseXML.querySelector('NATIONS').innerHTML.split(':');
+		item = 0;
+		mins = (new Date()).getHours() * 60 + (new Date()).getMinutes();
+		originalMins = mins;
+		major = 60 * (new Date(1672553100000)).getHours() + (new Date(1672553100000)).getMinutes();
+		minor = 60 * (new Date(1672508520000)).getHours() + (new Date(1672508520000)).getMinutes();
+		nextMajor = (new Date());
+		nextMinor = (new Date());
 		while (true){
 			mins = 1 + (mins % 1440);
 			if(mins == major){
