@@ -3,7 +3,7 @@ document.querySelector('BUTTON').onclick = function(){
 	var updates = Number.parseInt(document.querySelector('#UPDATES').value);
 	if(nation == ''){
 		alert('Please enter your nation name to proceed.')
-	}else if (updates == Nan){
+	}else if (updates == NaN){
 		alert('Entered number of updates is invalid.')
 	}else{
 		document.querySelector('#LOADING').innerHTML = 'Loading...'
