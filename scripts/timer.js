@@ -19,14 +19,14 @@ document.querySelector('BUTTON').onclick = function(){
 		while (true){
 			mins = 1 + (mins % 1440);
 			if(mins == major){
-				nextMajor.setTime(nextMajor.getTime() + (mins - originalMins) * 60000));
+				nextMajor.setTime(nextMajor.getTime() + (mins - originalMins) * 60000);
 				if(nextIsMajor == false){
 					break;
 				}else{
 					nextIsMajor = true;
 				}
 			} if (mins == minor){
-				nextMinor.setTime(nextMinor.getTime() + (mins - originalMins) * 60000));
+				nextMinor.setTime(nextMinor.getTime() + (mins - originalMins) * 60000);
 				if(nextIsMajor == true){
 					break;
 				}else{
