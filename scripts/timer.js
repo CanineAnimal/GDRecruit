@@ -1,7 +1,10 @@
 document.querySelector('BUTTON').onclick = function(){
 	var nation = document.querySelector('INPUT').value;
+	var updates = Number.parseInt(document.querySelector('#UPDATES').value);
 	if(nation == ''){
 		alert('Please enter your nation name to proceed.')
+	}else if (updates == Nan){
+		alert('Entered number of updates is invalid.')
 	}else{
 		document.querySelector('#LOADING').innerHTML = 'Loading...'
 		regrequest = new XMLHttpRequest();
@@ -33,6 +36,9 @@ document.querySelector('BUTTON').onclick = function(){
 					nextIsMajor = false;
 				}
 			}
+		}
+		if(updates/2 != Math.floor(updates/2)){
+			nextIsMajor = !nextIsMajor
 		}
 		var interval = setInterval(function(){
 			if(item < nations.length){
