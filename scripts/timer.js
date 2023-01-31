@@ -15,6 +15,7 @@ document.querySelector('BUTTON').onclick = function(){
 		minor = 60 * (new Date(1672508520000)).getHours() + (new Date(1672508520000)).getMinutes();
 		nextMajor = (new Date());
 		nextMinor = (new Date());
+		nextIsMajor = undefined;
 		while (true){
 			mins = 1 + (mins % 1440);
 			if(mins == major){
