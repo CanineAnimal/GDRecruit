@@ -50,9 +50,9 @@ document.querySelector('BUTTON').onclick = function(){
 				request.send();
 
 				if(checkMajor && (nextMajor.getTime()/1000 + days * 86400 - eval(request.responseXML.querySelector('LASTLOGIN').innerHTML) > 2419200) && ((nextMinor.getTime()/1000 - 86400) - eval(request.responseXML.querySelector('LASTLOGIN').innerHTML) < 2419200)){
-					document.body.querySelector('#OUTPUT').innerHTML += nations[item] + ' will CTE next update! Oh dear. <BR/>';
+					document.body.querySelector('#OUTPUT').innerHTML += nations[item] + ' will CTE! Oh dear.<BR/>';
 				} else if (!checkMajor && (nextMinor.getTime()/1000 + days * 86400 - eval(request.responseXML.querySelector('LASTLOGIN').innerHTML) > 2419200) && ((nextMajor.getTime()/1000 - 86400) - eval(request.responseXML.querySelector('LASTLOGIN').innerHTML) < 2419200)){
-					document.body.querySelector('#OUTPUT').innerHTML += nations[item] + ' will CTE next update! Oh dear. <BR/>';
+					document.body.querySelector('#OUTPUT').innerHTML += nations[item] + ' will CTE! Oh dear.<BR/>';
 				}
 				item++;
 			}else{
