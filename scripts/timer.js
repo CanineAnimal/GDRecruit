@@ -23,14 +23,14 @@ document.querySelector('BUTTON').onclick = function(){
 			jtem++;
 			mins = 1 + (mins % 1440);
 			if(mins == major){
-				nextMajor.setTime(Math.ground((nextMajor.getTime() + jtem * 60000)/1000) * 1000);
+				nextMajor.setTime(Math.floor((nextMajor.getTime() + jtem * 60000)/1000) * 1000);
 				if(nextIsMajor == false){
 					break;
 				}else{
 					nextIsMajor = true;
 				}
 			} if (mins == minor){
-				nextMinor.setTime(Math.ground((nextMinor.getTime() + jtem * 60000)/1000) * 1000);
+				nextMinor.setTime(Math.floor((nextMinor.getTime() + jtem * 60000)/1000) * 1000);
 				if(nextIsMajor == true){
 					break;
 				}else{
