@@ -12,24 +12,25 @@ document.querySelector('BUTTON').onclick = function(){
 		regrequest.send();
 		nations = regrequest.responseXML.querySelector('NATIONS').innerHTML.split(':');
 		item = 0;
+		jtem = 0;
 		mins = (new Date()).getHours() * 60 + (new Date()).getMinutes();
-		originalMins = mins;
 		major = 60 * (new Date(1672553100000)).getHours() + (new Date(1672553100000)).getMinutes();
 		minor = 60 * (new Date(1672508520000)).getHours() + (new Date(1672508520000)).getMinutes();
 		nextMajor = (new Date());
 		nextMinor = (new Date());
 		nextIsMajor = undefined;
 		while (true){
+			jtem++;
 			mins = 1 + (mins % 1440);
 			if(mins == major){
-				nextMajor.setTime(nextMajor.getTime() + (mins - originalMins) * 60000);
+				nextMajor.setTime(Math.ground((nextMajor.getTime() + jtem * 60000)/1000) * 1000);
 				if(nextIsMajor == false){
 					break;
 				}else{
 					nextIsMajor = true;
 				}
 			} if (mins == minor){
-				nextMinor.setTime(nextMinor.getTime() + (mins - originalMins) * 60000);
+				nextMinor.setTime(Math.ground((nextMinor.getTime() + jtem * 60000)/1000) * 1000);
 				if(nextIsMajor == true){
 					break;
 				}else{
