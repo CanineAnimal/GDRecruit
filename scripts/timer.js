@@ -42,6 +42,7 @@ document.querySelector('BUTTON').onclick = function(){
 			checkMajor = !nextIsMajor
 			days = updates/2 - 1
 		}else{
+			checkMajor = nextIsMajor
 			days = updates/2 - 0.5
 		} var interval = setInterval(function(){
 			if(item < nations.length){
