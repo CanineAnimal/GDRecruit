@@ -37,18 +37,20 @@ document.querySelector('BUTTON').onclick = function(){
 				}
 			}
 		}
-		if(updates/2 != Math.floor(updates/2)){
-			nextIsMajor = !nextIsMajor
-		}
-		var interval = setInterval(function(){
+		if(updates/2 == Math.floor(updates/2)){
+			checkMajor = !nextIsMajor
+			days = updates/2 - 1
+		}else{
+			days = updates/2 - 0.5
+		} var interval = setInterval(function(){
 			if(item < nations.length){
 				var request = new XMLHttpRequest();
 				request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nations[item] + '&q=lastlogin&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nation, false);
 				request.send();
 
-				if(nextIsMajor && (nextMajor.getTime()/1000 - eval(request.responseXML.querySelector('LASTLOGIN').innerHTML) > 2419200) && ((nextMinor.getTime()/1000 - 86400) - eval(request.responseXML.querySelector('LASTLOGIN').innerHTML) < 2419200)){
+				if(checkMajor && (nextMajor.getTime()/1000 + days * 86400 - eval(request.responseXML.querySelector('LASTLOGIN').innerHTML) > 2419200) && ((nextMinor.getTime()/1000 - 86400) - eval(request.responseXML.querySelector('LASTLOGIN').innerHTML) < 2419200)){
 					document.body.querySelector('#OUTPUT').innerHTML += nations[item] + ' will CTE next update! Oh dear. <BR/>';
-				} else if (!nextIsMajor && (nextMinor.getTime()/1000 - eval(request.responseXML.querySelector('LASTLOGIN').innerHTML) > 2419200) && ((nextMajor.getTime()/1000 - 86400) - eval(request.responseXML.querySelector('LASTLOGIN').innerHTML) < 2419200)){
+				} else if (!checkMajor && (nextMinor.getTime()/1000 + days * 86400 - eval(request.responseXML.querySelector('LASTLOGIN').innerHTML) > 2419200) && ((nextMajor.getTime()/1000 - 86400) - eval(request.responseXML.querySelector('LASTLOGIN').innerHTML) < 2419200)){
 					document.body.querySelector('#OUTPUT').innerHTML += nations[item] + ' will CTE next update! Oh dear. <BR/>';
 				}
 				item++;
