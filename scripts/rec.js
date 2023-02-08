@@ -6,6 +6,7 @@ var blacklistHTML = '';
 var blacklist = [];
 var originalTime2;
 var originalTime;
+var recips = 0;
 var tem;
 var nat;
 var fd;
@@ -75,6 +76,7 @@ function start(){
 			if(!blacklisted){
 				nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
 				link += nations[item] + ',';
+				recips++;
 			}
 		}
 		nats[nats.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
@@ -98,7 +100,7 @@ function initiateRecruitGeneration(){
 	}else{
 		document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify<BR/><BR/><TABLE><THEAD><TH>Blacklisted string</TH><TH>Remove</TH></THEAD><TBODY>' + blacklistHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR></TBODY></TABLE>';
 	}if(fd + 47336400 > (new Date()).getTime()/1000){
-		setTimeout(generateRecruits, 1000 * (13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7) * Math.min(8, nations.length) + 1);
+		setTimeout(generateRecruits, 1000 * (13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7) * recips + 1);
 	}else{
 		setTimeout(generateRecruits, 6);
 	}
@@ -121,7 +123,6 @@ function generateRecruits(){
 			}
 			if(!blacklisted){
 				nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
-				link += nations[item] + ',';
 			}
 			nats[nats.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
 		}
@@ -133,8 +134,10 @@ function generateRecruits(){
 				freeNations[freeNations.length] = nations[item];
 			}else if(item < nations.length){
 				link += nations[item] + ',';
+				recips++;
 			}else if(freeNations[0]){
 				link += freeNations[0] + ',';
+				recips++;
 				freeNations.shift();
 			}
 			item++;
