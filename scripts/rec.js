@@ -128,8 +128,8 @@ function generateRecruits(){
 	}if(nations.length > 0){
 		link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
 		var item = 0;
+		var jtem = 0;
 		while (item < Math.max(8, nations.length)){
-			var jtem = 0;
 			if(item >= 8){
 				freeNations[freeNations.length] = nations[item];
 			}else if(item < nations.length){
@@ -139,9 +139,6 @@ function generateRecruits(){
 				jtem++;
 			}
 			item++;
-		}
-		for(var item = 0; item < Math.min(8, nations.length); item++){
-			link += nations[item] + ',';
 		}
 		if(document.querySelector('#SOUND').checked){
 			document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '&message=' + tem + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify<AUDIO AUTOPLAY><SOURCE SRC="https://canineanimal.github.io/GDRecruit/ring.mp3" TYPE="audio/mpeg"></AUDIO><BR/><BR/><TABLE><THEAD><TH>Blacklisted string</TH><TH>Remove</TH></THEAD><TBODY>' + blacklistHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR></TBODY></TABLE>';
