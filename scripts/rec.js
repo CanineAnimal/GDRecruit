@@ -132,11 +132,11 @@ function generateRecruits(){
 			var jtem = 0;
 			if(item >= 8){
 				freeNations[freeNations.length] = nations[item];
-			}else if(item >= nations.length){
+			}else if(item < nations.length){
+				link += nations[item] + ',';
+			}else if(freeNations[jtem]){
 				link += freeNations[jtem] + ',';
 				jtem++;
-			}else{
-				link += nations[item] + ',';
 			}
 			item++;
 		}
