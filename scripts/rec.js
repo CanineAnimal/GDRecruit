@@ -1,6 +1,7 @@
 var nats = [];
 var nations = [];
 var notify = true;
+var freeNations = [];
 var blacklistHTML = '';
 var blacklist = [];
 var originalTime2;
@@ -126,6 +127,19 @@ function generateRecruits(){
 		}
 	}if(nations.length > 0){
 		link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
+		var item = 0;
+		while (item < Math.max(8, nations.length)){
+			var jtem = 0;
+			if(item >= 8){
+				freeNations[freeNations.length] = nations[item];
+			}else if(item >= nations.length){
+				link += freeNations[jtem] + ',';
+				jtem++;
+			}else{
+				link += nations[item] + ',';
+			}
+			item++;
+		}
 		for(var item = 0; item < Math.min(8, nations.length); item++){
 			link += nations[item] + ',';
 		}
