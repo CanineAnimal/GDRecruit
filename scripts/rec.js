@@ -95,7 +95,6 @@ function recBut(){
 	}
 }
 function initiateRecruitGeneration(){
-	recips = 0;
 	if(document.querySelector('#SOUND').checked){
 		document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify<BR/><BR/><TABLE><THEAD><TH>Blacklisted string</TH><TH>Remove</TH></THEAD><TBODY>' + blacklistHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR></TBODY></TABLE>';
 	}else{
@@ -107,6 +106,7 @@ function initiateRecruitGeneration(){
 	}
 }
 function generateRecruits(){
+	recips = 0;
 	nations = [];
 	var request2;
 	request2 = new XMLHttpRequest();
