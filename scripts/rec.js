@@ -128,15 +128,14 @@ function generateRecruits(){
 	}if(nations.length > 0){
 		link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
 		var item = 0;
-		var jtem = 0;
 		while (item < Math.max(8, nations.length)){
 			if(item >= 8){
 				freeNations[freeNations.length] = nations[item];
 			}else if(item < nations.length){
 				link += nations[item] + ',';
-			}else if(freeNations[jtem]){
-				link += freeNations[jtem] + ',';
-				jtem++;
+			}else if(freeNations[0]){
+				link += freeNations[0] + ',';
+				freeNations.shift();
 			}
 			item++;
 		}
