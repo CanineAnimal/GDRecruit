@@ -36,7 +36,7 @@ function add2blacklist(){
 		freeNations = newFreeNations;
 		var newNations = [];
 		for(var item = 0; item < nations.length; item++){
-			if(nations[item].indexOf(victim) == -1){
+			if(nations[item].indexOf(victim.toLowerCase().replaceAll(' ', '_')) == -1){
 				newNations[newNations.length] = nations[item];
 			}
 		}
