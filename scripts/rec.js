@@ -29,7 +29,7 @@ function add2blacklist(){
 		}
 		var newFreeNations = [];
 		for(var item = 0; item < freeNations.length; item++){
-			if(freeNations[item].indexOf(victim) == -1){
+			if(freeNations[item].indexOf(victim.toLowerCase().replaceAll(' ', '_')) == -1){
 				newFreeNations[newFreeNations.length] = freeNations[item];
 			}
 		}
