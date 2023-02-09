@@ -27,7 +27,22 @@ function add2blacklist(){
 		for(var item = 0; item < blacklist.length; item++){
 			blacklistHTML += '<TR><TD>' + blacklist[item] + '</TD><TD><BUTTON ONCLICK="whitelist(' + item + ')" CLASS="WHITELIST">X</BUTTON></TD></TR>';
 		}
+		var newFreeNations = [];
+		for(var item = 0; item < freeNations.length; item++){
+			if(freeNations[item].indexOf(victim) == -1){
+				newFreeNations[newFreeNations.length] = freeNations[item];
+			}
+		}
+		freeNations = newFreeNations;
+		var newNations = [];
+		for(var item = 0; item < nations.length; item++){
+			if(nations[item].indexOf(victim) == -1){
+				newNations[newNations.length] = nations[item];
+			}
+		}
+		nations = newNations;
 		document.querySelector('TBODY').innerHTML = blacklistHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR>';
+
 	}else{
 		alert('No string entered to blacklist.')
 	}
