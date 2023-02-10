@@ -7,6 +7,7 @@ document.querySelector('BUTTON').onclick = function(){
 		alert('Entered number of updates is invalid.')
 	}else{
 		document.querySelector('#LOADING').innerHTML = 'Loading...'
+		document.querySelector('#OUTPUT').innerHTML = ''
 		regrequest = new XMLHttpRequest();
 		regrequest.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?region=greater_dienstad&q=nations&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nation, false);
 		regrequest.send();
