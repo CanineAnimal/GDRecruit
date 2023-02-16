@@ -148,6 +148,9 @@ function generateRecruits(){
 		while (item < Math.max(8, nations.length)){
 			if(item >= 8){
 				freeNations[freeNations.length] = nations[item];
+				while(freeNations.length > 50){
+					freeNations.pop();
+				}
 			}else if(item < nations.length){
 				link += nations[item] + ',';
 				recips++;
