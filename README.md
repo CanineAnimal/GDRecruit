@@ -7,7 +7,7 @@ Please go [here](https://canineanimal.github.io/GDRecruit/pages/timer.html) for 
 # Setting up
 You must receive permission from myself or [The Macabees](https://www.nationstates.net/page=region_control/region=greater_dienstad) to be able to recruit -- otherwise, neither NationStates nor GDRecruit will allow you to send recruitment telegrams. Once you have received such permission, you should create a recruitment template. To this, from your nation in Greater Dienstad, send a telegram addressed to "tag:template", containing the text of your recruitment telegram. You are strongly encouraged to use the existing template [here](https://github.com/CanineAnimal/GDRecruit/raw/main/template.txt); simply copy and paste it into the telegram content box; however, you can use your own if you want.
 
-Once you do this, your telegram page should show you a telegram template code, which looks something like %TEMPLATE-29212757%. Record this in a place that you can access it -- it need not be secret, and if you forget you can find it in your sent telegram folder.
+Once you do this, your telegram page should show you a telegram template code, which looks something like %TEMPLATE-29217065%. Record this in a place that you can access it -- it need not be secret, and if you forget you can find it in your sent telegram folder.
 
 # Recruiting
 To recruit, first visit [this page](https://canineanimal.github.io/GDRecruit/pages/rec.html). There, enter your GD nation, the telegram template code, and a verification code (which you can generate by pressing the link in the login page while logged into your GD nation in NationStates), and click the "Log in" button.
