@@ -1,8 +1,10 @@
 # Module imports
 import xml.etree.ElementTree as ExtraTerrestrial
+from datetime import date
 import requests
 import time
 import gzip
+import os
 
 tries = 0
 
@@ -24,71 +26,55 @@ months = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
 # Find what API dumps to get
 region_name = input('Enter region name (use spaces instead of underscores): ')
-fetch_start = input('Enter first dump to fetch as yyyy-mm-dd: ').split('-')
-fetch_end = input('Enter last dump to fetch as yyyy-mm-dd: ').split('-')
 user_name = input('Enter your nation name: ')
 
-if(int(fetch_start[0]) < 2021 or int(fetch_start[1]) > 12 or int(fetch_start[1]) < 1 or int(fetch_start[2]) < 1 or int(fetch_start[2]) > months[int(fetch_start[1])]):
-	raise # Invalid fetch_start entered
-elif(int(fetch_end[0]) < 2021 or int(fetch_end[1]) > 12 or int(fetch_end[1]) < 1 or int(fetch_end[2]) < 1 or int(fetch_end[2]) > months[int(fetch_end[1])]):
-	raise # Invalid fetch_end entered
+# Convert date_raw to date_id for easier comparison with dumps.txt
+date_raw = [date.fromtimestamp(time.time()).year, date.fromtimestamp(time.time()).month, date.fromtimestamp(time.time()).day]
+
+# Deal with leap years
+if date_raw[0] % 4 == 0:
+	months[2] = 29
 else:
-	# Convert fetch_start and fetch_end to fetch_start_id and fetch_end_id for easier comparison with dumps.txt
-	fetch_start[0] = int(fetch_start[0])
-	fetch_start[1] = int(fetch_start[1])
-	fetch_start[2] = int(fetch_start[2])
-	fetch_end[0] = int(fetch_end[0])
-	fetch_end[1] = int(fetch_end[1])
-	fetch_end[2] = int(fetch_end[2])
-	
-	# Deal with leap years
-	if fetch_start[0] % 4 == 0:
-		months[2] = 29
-	else:
-		months[2] = 28
-	
-	fetch_start_id = fetch_start[2] + (fetch_start[0] - 2021) * 365
-	month = 1
-	while month < fetch_start[1]:
-		fetch_start_id += months[month]
-		month += 1
-	fetch_end_id = fetch_end[2] + (fetch_end[0] - 2021) * 365
-	month = 1
-	while month < fetch_end[1]:
-		fetch_end_id += months[month]
-		month += 1
+	months[2] = 28
 
-	# Check if fetching dump is needed
-	dump_needed = False
+date_id = date_raw[2] + (date_raw[0] - 2021) * 365
+month = 1
+while month < date_raw[1]:
+	date_id += months[month]
+	month += 1
+
+# Check if fetching dump is needed
+dump_needed = False
+try:
+	saved_dumps.index(str(date_id))
+except:
+	dump_needed = True
+
+while dump_needed:
+	# Dump needed; fetch dump
 	try:
-		saved_dumps.index(str(fetch_start_id))
+		print('Fetching dump from ' + str(date_id))
+		dump = ExtraTerrestrial.fromstring(gzip.decompress(requests.get('https://www.nationstates.net/pages/nations.xml.gz', headers={'User-Agent':'Daily dump download script created by the Ice States and used by ' + user_name}).content))
+		print('Locating nation in dump')
+		for nation in dump:
+			if nation.findall('REGION').text.lower() == region_name.lower():
+				print('Saving dump')
+				f = open('dumps/' + str(date_id) + '.xml', 'w')
+				f.write(ExtraTerrestrial.tostring(nation, encoding='unicode'))
+				f.close()
+				print('Updating dumps.txt')
+				f = open('dumps/dumps.txt', 'a')
+				f.write('\n' + str(date_id))
+				f.close()
+		tries = 0
+		print('Dump saved.')
+		break
 	except:
-		dump_needed = True
-
-	if dump_needed:
-		# Dump needed; fetch dump
-		try:
-			print('Fetching dump from ' + str(fetch_start[0]).zfill(4) + '-' + str(fetch_start[1]).zfill(2) + '-' + str(fetch_start[2]).zfill(2))
-			dump = ExtraTerrestrial.fromstring(gzip.decompress(requests.get('https://www.nationstates.net/pages/nations.xml.gz', headers={'User-Agent':'Daily dump download script created by the Ice States and used by ' + user_name}).content))
-			print('Locating nation in dump')
-			for nation in dump:
-				if nation.findall('REGION').text.lower() == region_name.lower():
-					print('Saving dump')
-					f = open('dumps/' + str(fetch_start_id) + '.xml', 'w')
-					f.write(ExtraTerrestrial.tostring(nation, encoding='unicode'))
-					f.close()
-					print('Updating dumps.txt')
-					f = open('dumps/dumps.txt', 'a')
-					f.write('\n' + str(fetch_start_id))
-					f.close()
-			tries = 0
-			print('Dump saved.')
-		except:
-			print('Failed to fetch dump')
-			tries += 1
-			if tries == 3:
-				# Stop trying after three consecutive failures
-				raise
-		
-		# Rate limit requests
-		time.sleep(6.5)
+		print('Failed to fetch dump')
+		tries += 1
+		if tries == 3:
+			# Stop trying after three consecutive failures
+			raise
+	
+	# Rate limit requests
+	time.sleep(6.5)
