@@ -7,6 +7,7 @@ import gzip
 import os
 
 tries = 0
+cont = False
 
 # Get dumps already fetched
 try:
@@ -50,6 +51,55 @@ try:
 except:
 	dump_needed = True
 
+while dump_needed:
+	# Dump needed; fetch dump
+	try:
+		print('Fetching dump from ' + str(date_id))
+		dump = ExtraTerrestrial.fromstring(gzip.decompress(requests.get('https://www.nationstates.net/pages/nations.xml.gz', headers={'User-Agent':'Daily dump download script created by the Ice States and used by ' + user_name}).content))
+		print('Locating nations in dump')
+		f = open('dumps/' + str(date_id) + '.xml', '1')
+		f.write('<ROOT>')
+		f.close()
+		for nation in dump:
+			if nation.findall('REGION')[0].text.lower() == region_name.lower():
+				try:
+					f = open('dumps/' + str(date_id) + '.xml', 'a')
+					f.write('<NATION>' + ExtraTerrestrial.tostring(nation.findall('NAME')[0]).decode('utf8') + ExtraTerrestrial.tostring(nation.findall('LASTLOGIN')[0]).decode('utf8') + '</NATION>')
+					f.close()
+				except:
+					cont = True
+					f = open('dumps/' + str(date_id) + '.xml', 'a')
+					f.write('<NATION>' + ExtraTerrestrial.tostring(nation.findall('NAME')[0]).decode('utf8') + ExtraTerrestrial.tostring(nation.findall('LASTLOGIN')[0]).decode('utf8') + '</NATION>')
+					f.close()
+				
+				if cont:
+					try:
+						f = open('dumps/' + str(date_id) + '.xml', 'a')
+						f.write('<NATION>' + ExtraTerrestrial.tostring(nation.findall('NAME')[0]).decode('utf8') + ExtraTerrestrial.tostring(nation.findall('LASTLOGIN')[0]).decode('utf8') + '</NATION>')
+						f.close()	
+					except:
+						pass
+		
+		f = open('dumps/' + str(date_id) + '.xml', '1')
+		f.write('</ROOT>')
+		f.close()
+		
+		print('Updating dumps.txt')
+		f = open('dumps/dumps.txt', 'a')
+		f.write('\n' + str(date_id))
+		f.close()
+		tries = 0
+		print('Dump saved.')
+		break
+	except:
+		print('Failed to fetch dump')
+		tries += 1
+		if tries == 3:
+			# Stop trying after three consecutive failures
+			raise
+	
+	# Rate limit requests
+	time.sleep(6.5)
 while dump_needed:
 	# Dump needed; fetch dump
 	try:
