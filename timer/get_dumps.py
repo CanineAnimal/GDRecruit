@@ -73,7 +73,7 @@ else:
 				if nation.findall('REGION').text.lower() == region_name.lower():
 					print('Saving dump')
 					f = open('dumps/' + str(fetch_start_id) + '.xml', 'w')
-					f.write(ExtraTerrestrial.tostring(region, encoding='unicode'))
+					f.write(ExtraTerrestrial.tostring(nation, encoding='unicode'))
 					f.close()
 					print('Updating dumps.txt')
 					f = open('dumps/dumps.txt', 'a')
