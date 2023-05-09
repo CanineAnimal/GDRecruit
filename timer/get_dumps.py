@@ -13,6 +13,8 @@ try:
 	f.close()
 except:
 	# Create dumps.txt if it somehow does not exist
+	if not os.path.exists('./dumps'):
+		os.makedirs('./dumps')
 	f = open('dumps/dumps.txt', 'x')
 	f.close()
 	saved_dumps = []
