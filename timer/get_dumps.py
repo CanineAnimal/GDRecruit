@@ -56,63 +56,37 @@ else:
 		fetch_end_id += months[month]
 		month += 1
 
-	while fetch_start_id <= fetch_end_id:
-		# Check if fetching dump is needed
-		dump_needed = False
+	# Check if fetching dump is needed
+	dump_needed = False
+	try:
+		saved_dumps.index(str(fetch_start_id))
+	except:
+		dump_needed = True
+
+	if dump_needed:
+		# Dump needed; fetch dump
 		try:
-			saved_dumps.index(str(fetch_start_id))
-			fetch_start_id += 1
-			fetch_start[2] += 1
-			if fetch_start[2] > months[fetch_start[1]]:
-				fetch_start[2] = 1
-				fetch_start[1] += 1
-			if fetch_start[1] > 12:
-				fetch_start[1] = 1
-				fetch_start[0] += 1
+			print('Fetching dump from ' + str(fetch_start[0]).zfill(4) + '-' + str(fetch_start[1]).zfill(2) + '-' + str(fetch_start[2]).zfill(2))
+			dump = ExtraTerrestrial.fromstring(gzip.decompress(requests.get('https://www.nationstates.net/pages/nations.xml.gz', headers={'User-Agent':'Daily dump download script created by the Ice States and used by ' + user_name}).content))
+			print('Locating nation in dump')
+			for nation in dump:
+				if nation.findall('REGION').text.lower() == region_name.lower():
+					print('Saving dump')
+					f = open('dumps/' + str(fetch_start_id) + '.xml', 'w')
+					f.write(ExtraTerrestrial.tostring(region, encoding='unicode'))
+					f.close()
+					print('Updating dumps.txt')
+					f = open('dumps/dumps.txt', 'a')
+					f.write('\n' + str(fetch_start_id))
+					f.close()
+			tries = 0
+			print('Dump saved.')
 		except:
-			dump_needed = True
+			print('Failed to fetch dump')
+			tries += 1
+			if tries == 3:
+				# Stop trying after three consecutive failures
+				raise
 		
-		if dump_needed:
-			# Dump needed; fetch dump
-			try:
-				print('Fetching dump from ' + str(fetch_start[0]).zfill(4) + '-' + str(fetch_start[1]).zfill(2) + '-' + str(fetch_start[2]).zfill(2))
-				dump = ExtraTerrestrial.fromstring(gzip.decompress(requests.get('https://www.nationstates.net/archive/nations/' + str(fetch_start[0]).zfill(4) + '-' + str(fetch_start[1]).zfill(2) + '-' + str(fetch_start[2]).zfill(2) + '-nations-xml.gz', headers={'User-Agent':'Daily dump download script created by the Ice States and used by ' + user_name}).content))
-				print('Locating nation in dump')
-				for nation in dump:
-					if nation.findall('REGION').text.lower() == region_name.lower():
-						print('Saving dump')
-						f = open('dumps/' + str(fetch_start_id) + '.xml', 'w')
-						f.write(ExtraTerrestrial.tostring(region, encoding='unicode'))
-						f.close()
-						print('Updating dumps.txt')
-						f = open('dumps/dumps.txt', 'a')
-						f.write('\n' + str(fetch_start_id))
-						f.close()
-				tries = 0
-				print('Moving on to next dump')
-				fetch_start_id += 1
-				fetch_start[2] += 1
-				if fetch_start[2] > months[fetch_start[1]]:
-					fetch_start[2] = 1
-					fetch_start[1] += 1
-				if fetch_start[1] > 12:
-					fetch_start[1] = 1
-					fetch_start[0] += 1
-			except:
-				print('Failed to fetch dump')
-				tries += 1
-				if tries == 3:
-					# Increment anyway after three tries
-					fetch_start_id += 1
-					fetch_start[2] += 1
-					if fetch_start[2] > months[fetch_start[1]]:
-						fetch_start[2] = 1
-						fetch_start[1] += 1
-						print('Moving on to next dump')
-					if fetch_start[1] > 12:
-						fetch_start[1] = 1
-						fetch_start[0] += 1
-				elif tries == 6:
-					# Stop trying after six consecutive failures
-					raise
-			time.sleep(6.5)
+		# Rate limit requests
+		time.sleep(6.5)
