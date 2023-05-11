@@ -2,7 +2,7 @@
 GDRecruit is a tool by myself (The Ice States) to facilitate recruitment in [Greater Dienstad](https://www.nationstates.net/region=greater_dienstad). I encourage you to join or visit Greater Dienstad, which is the main beneficiary of this tool.
 
 # CTE Timer
-This repository also contains Python code (in timer folder) for parsing how many nations will CTE in GD the next major update. First run get_dumps.py to fetch relevant daily dumps (do not import them manually) then run process_dumps.py to get calculated CTEs.
+This repository also contains Python code (in timer folder) for parsing how many nations will CTE in GD the next major update. First run get_dumps.py to fetch relevant daily dumps (do not import them manually) then run process_dumps.py to get predicted CTEs. Predicted CTEs will be outputed in a text file "ctes.txt".
 
 # Setting up
 You must receive permission from myself or [The Macabees](https://www.nationstates.net/page=region_control/region=greater_dienstad) to be able to recruit -- otherwise, neither NationStates nor GDRecruit will allow you to send recruitment telegrams. Once you have received such permission, you should create a recruitment template. To this, from your nation in Greater Dienstad, send a telegram addressed to "tag:template", containing the text of your recruitment telegram. You are strongly encouraged to use the existing template [here](https://github.com/CanineAnimal/GDRecruit/raw/main/template.txt); simply copy and paste it into the telegram content box; however, you can use your own if you want.
