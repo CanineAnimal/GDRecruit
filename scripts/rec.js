@@ -141,9 +141,10 @@ function generateRecruits(){
 		}catch(e){
 			// If request fails again, post alert, thus stopping the program until user clicks Ok.
 			alert('Failed to load new recruits. Press Ok below to resume.');
+			originalTime = (new Date()).getTime();
+			setTimeout(generateRecruits, originalTime + 600 - new Date().getTime());
 		}
 	}
-	originalTime = (new Date()).getTime();
 }
 function processRecruits(){
 	for (var item = 0; item < request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length; item++){
