@@ -7,6 +7,7 @@ var blacklist = [];
 var originalTime2;
 var originalTime;
 var recips = 0;
+var request2;
 var tem;
 var nat;
 var fd;
@@ -74,7 +75,6 @@ function login(){
 }
 function start(){
 	link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
-	var request2;
 	request2 = new XMLHttpRequest();
 	request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations' + '&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
 	while((new Date()).getTime() < originalTime + 600){};
@@ -123,7 +123,6 @@ function initiateRecruitGeneration(){
 function generateRecruits(){
 	recips = 0;
 	nations = [];
-	var request2;
 	try{
 		request2 = new XMLHttpRequest();
 		request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations' + '&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
