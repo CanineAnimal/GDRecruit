@@ -128,6 +128,7 @@ function generateRecruits(){
 		request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations' + '&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
 		while((new Date()).getTime() < originalTime + 600){};
 		request2.send();
+		originalTime = (new Date()).getTime();
 		processRecruits();
 	}catch(e){
 		try{
@@ -137,11 +138,12 @@ function generateRecruits(){
 			request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations' + '&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
 			while((new Date()).getTime() < originalTime + 600){};
 			request2.send();
+			originalTime = (new Date()).getTime();
 			processRecruits();
 		}catch(e){
 			// If request fails again, post alert, thus stopping the program until user clicks Ok.
-			alert('Failed to load new recruits. Press Ok below to resume.');
 			originalTime = (new Date()).getTime();
+			alert('Failed to load new recruits. Press Ok below to resume.');
 			setTimeout(generateRecruits, originalTime + 600 - new Date().getTime());
 		}
 	}
