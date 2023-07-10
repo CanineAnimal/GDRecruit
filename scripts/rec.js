@@ -128,6 +128,7 @@ function generateRecruits(){
 		request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations' + '&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
 		while((new Date()).getTime() < originalTime + 600){};
 		request2.send();
+		processRecruits();
 	}catch(e){
 		try{
 			// Try again if request fails
@@ -136,12 +137,15 @@ function generateRecruits(){
 			request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations' + '&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
 			while((new Date()).getTime() < originalTime + 600){};
 			request2.send();
+			processRecruits();
 		}catch(e){
 			// If request fails again, post alert, thus stopping the program until user clicks Ok.
 			alert('Failed to load new recruits. Press Ok below to resume.');
 		}
 	}
 	originalTime = (new Date()).getTime();
+}
+function processRecruits(){
 	for (var item = 0; item < request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length; item++){
 		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item]) == -1){
 			var blacklisted = false;
