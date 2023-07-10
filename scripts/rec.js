@@ -124,10 +124,24 @@ function generateRecruits(){
 	recips = 0;
 	nations = [];
 	var request2;
-	request2 = new XMLHttpRequest();
-	request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations' + '&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
-	while((new Date()).getTime() < originalTime + 600){};
-	request2.send();
+	try{
+		request2 = new XMLHttpRequest();
+		request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations' + '&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
+		while((new Date()).getTime() < originalTime + 600){};
+		request2.send();
+	}catch(e){
+		try{
+			// Try again if request fails
+			originalTime = (new Date()).getTime();
+			request2 = new XMLHttpRequest();
+			request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations' + '&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
+			while((new Date()).getTime() < originalTime + 600){};
+			request2.send();
+		}catch(e){
+			// If request fails again, post alert, thus stopping the program until user clicks Ok.
+			alert('Failed to load new recruits. Press Ok below to resume.');
+		}
+	}
 	originalTime = (new Date()).getTime();
 	for (var item = 0; item < request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length; item++){
 		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item]) == -1){
