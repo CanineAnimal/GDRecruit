@@ -67,7 +67,7 @@ function login(){
     request.send();
     originalTime = (new Date()).getTime();
     fd = eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML);
-    delRequest = new XMLhttpRequest();
+    delRequest = new XMLHttpRequest();
     delRequest.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?wa=1&q=delegates&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
     while((new Date()).getTime() < originalTime + 600){};
     delRequest.send();
