@@ -43,7 +43,7 @@ function add2blacklist(){
 			}
 		}
 		nations = newNations;
-		document.querySelector('TBODY').innerHTML = blacklistHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR>';
+		document.querySelector('TBODY').innerHTML = blacklistHTML + '<TR><TD>Blacklist nation: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR>';
 
 	}else{
 		alert('No string entered to blacklist.')
@@ -73,32 +73,44 @@ function login(){
     delRequest.send();
     originalTime = (new Date()).getTime();
     dels = request.responseXML.querySelector('DELEGATES').innerHTML.split(',');
+    delNo = dels.indexOf(prompt('Enter last nation telegrammed if resuming manual campaign (you can view this on your telegram template, as the bottommost sent telegram). If starting campaign, leave the prompt blank and press OK.')) + 1;
     start();
 	}
 }
 function start(){
-	link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
-	request2 = new XMLHttpRequest();
-	request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + dels[delNo] + '&q=tgcancampaign&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
-	while((new Date()).getTime() < originalTime + 600){};
-	request2.send();
-	originalTime = (new Date()).getTime();
-	for (var item = 0; item < request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length; item++){
-		if(nations.length < 8){
-			var blacklisted = false;
+	link = 'https://www.nationstates.net/page=compose_telegram?tgto=';  var delsGotten = [];
+  while(delsGotten.length < 8){
+    // Check that Delgate can receive campaign telegrams
+  	request2 = new XMLHttpRequest();
+	  request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + dels[delNo] + '&q=tgcancampaign&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
+	  while((new Date()).getTime() < originalTime + 600){};
+	  request2.send();
+	  originalTime = (new Date()).getTime();
+    
+    // If so, check that Delegate is not blacklisted
+    if(request2.responseXML.querySelector('TGCANCAMPAIGN').innerHTML == '1'){
+      var blacklisted = false;
 			for(var jtem = 0; jtem < blacklist.length; jtem++){
 				if(dels[delNo] == blacklist[jtem].toLowerCase().replaceAll(' ', '_')){
 					blacklisted = true;
 				}
 			}
-			if(!blacklisted){
-				nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
-				link += nations[item] + ',';
-				recips++;
-			}
-		}
-		nats[nats.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
-	}
+
+      // If Delegate is not blacklisted, add to list and link etc
+      if(!blacklisted){
+        delsGotten[delsGotten.length] = dels[delNo];
+        link += dels[delNo] + ',';
+      }
+    }
+    delNo++;
+    
+    // If we already reached the last Delegate for some reason, break out of loop
+    if(delNo == dels.length){
+      break;
+    }
+  }
+
+  // Post link
 	if(document.querySelector('#SOUND').checked){
 		document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '&message=' + tem + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify<BR/><BR/><TABLE><THEAD><TH>Blacklisted string</TH><TH>Remove</TH></THEAD><TBODY>' + blacklistHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR></TBODY></TABLE>';
 	}else{
@@ -107,89 +119,8 @@ function start(){
 }
 function recBut(){
 	if(document.querySelector('#SOUND').checked){
-		document.body.innerHTML = '<BUTTON CLASS="TG" ONCLICK="initiateRecruitGeneration()">Acknowledge</BUTTON><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify<BR/><BR/><TABLE><THEAD><TH>Blacklisted string</TH><TH>Remove</TH></THEAD><TBODY>' + blacklistHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR></TBODY></TABLE>';
+		document.body.innerHTML = '<BUTTON CLASS="TG" ONCLICK="start()">Acknowledge</BUTTON><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify<BR/><BR/><TABLE><THEAD><TH>Blacklisted string</TH><TH>Remove</TH></THEAD><TBODY>' + blacklistHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR></TBODY></TABLE>';
 	}else{
-		document.body.innerHTML = '<BUTTON CLASS="TG" ONCLICK="initiateRecruitGeneration()">Acknowledge</BUTTON><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify<BR/><BR/><TABLE><THEAD><TH>Blacklisted string</TH><TH>Remove</TH></THEAD><TBODY>' + blacklistHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR></TBODY></TABLE>';
-	}
-}
-function initiateRecruitGeneration(){
-	if(document.querySelector('#SOUND').checked){
-		document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify<BR/><BR/><TABLE><THEAD><TH>Blacklisted string</TH><TH>Remove</TH></THEAD><TBODY>' + blacklistHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR></TBODY></TABLE>';
-	}else{
-		document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify<BR/><BR/><TABLE><THEAD><TH>Blacklisted string</TH><TH>Remove</TH></THEAD><TBODY>' + blacklistHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR></TBODY></TABLE>';
-	}if(fd + 47336400 > (new Date()).getTime()/1000){
-		setTimeout(generateRecruits, 1000 * (13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7) * recips + 1);
-	}else{
-		setTimeout(generateRecruits, 6);
-	}
-}
-function generateRecruits(){
-	recips = 0;
-	nations = [];
-	try{
-		request2 = new XMLHttpRequest();
-		request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations' + '&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
-		while((new Date()).getTime() < originalTime + 600){};
-		request2.send();
-		originalTime = (new Date()).getTime();
-		processRecruits();
-	}catch(e){
-		try{
-			// Try again if request fails
-			originalTime = (new Date()).getTime();
-			request2 = new XMLHttpRequest();
-			request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations' + '&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
-			while((new Date()).getTime() < originalTime + 600){};
-			request2.send();
-			originalTime = (new Date()).getTime();
-			processRecruits();
-		}catch(e){
-			// If request fails again, post alert, thus stopping the program until user clicks Ok.
-			originalTime = (new Date()).getTime();
-			alert('Failed to load new recruits. Press Ok below to resume.');
-			setTimeout(generateRecruits, originalTime + 600 - new Date().getTime());
-		}
-	}
-}
-function processRecruits(){
-	for (var item = 0; item < request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',').length; item++){
-		if(nats.indexOf(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item]) == -1){
-			var blacklisted = false;
-			for(var jtem = 0; jtem < blacklist.length; jtem++){
-				if(request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item].indexOf(blacklist[jtem].toLowerCase().replaceAll(' ', '_')) != -1){
-					blacklisted = true;
-				}
-			}
-			if(!blacklisted){
-				nations[nations.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
-			}
-			nats[nats.length] = request2.responseXML.querySelector('NEWNATIONS').innerHTML.split(',')[item];
-		}
-	}if(nations.length > 0){
-		link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
-		var item = 0;
-		while (item < Math.max(8, nations.length)){
-			if(item >= 8){
-				freeNations[freeNations.length] = nations[item];
-				while(freeNations.length > 32){
-					freeNations.pop();
-				}
-			}else if(item < nations.length){
-				link += nations[item] + ',';
-				recips++;
-			}else if(freeNations[0]){
-				link += freeNations[0] + ',';
-				recips++;
-				freeNations.shift();
-			}
-			item++;
-		}
-		if(document.querySelector('#SOUND').checked){
-			document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '&message=' + tem + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify<AUDIO AUTOPLAY><SOURCE SRC="https://canineanimal.github.io/GDRecruit/ring.mp3" TYPE="audio/mpeg"></AUDIO><BR/><BR/><TABLE><THEAD><TH>Blacklisted string</TH><TH>Remove</TH></THEAD><TBODY>' + blacklistHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR></TBODY></TABLE>';
-		}else{
-			document.body.innerHTML = '<A CLASS="TG" TARGET="_BLANK" HREF="' + link + '&message=' + tem + '" ONCLICK="recBut()">Recruit</A><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify<BR/><BR/><TABLE><THEAD><TH>Blacklisted string</TH><TH>Remove</TH></THEAD><TBODY>' + blacklistHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR></TBODY></TABLE>';
-		}
-	}else{
-		setTimeout(generateRecruits, originalTime + 600 - new Date().getTime());
+		document.body.innerHTML = '<BUTTON CLASS="TG" ONCLICK="start()">Acknowledge</BUTTON><BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify<BR/><BR/><TABLE><THEAD><TH>Blacklisted string</TH><TH>Remove</TH></THEAD><TBODY>' + blacklistHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR></TBODY></TABLE>';
 	}
 }
