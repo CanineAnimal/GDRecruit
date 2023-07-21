@@ -70,7 +70,7 @@ function login(){
     while((new Date()).getTime() < originalTime + 600){};
     delRequest.send();
     originalTime = (new Date()).getTime();
-    dels = request.responseXML.querySelector('DELEGATES').innerHTML.split(',');
+    dels = delRequest.responseXML.querySelector('DELEGATES').innerHTML.split(',');
     delNo = dels.indexOf(prompt('Enter last nation telegrammed if resuming manual campaign (you can view this on your telegram template, as the bottommost sent telegram). If starting campaign, leave the prompt blank and press OK.')) + 1;
     start();
 	}
