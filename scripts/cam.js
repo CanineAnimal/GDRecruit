@@ -73,7 +73,7 @@ function login(){
     originalTime = (new Date()).getTime();
     dels = delRequest.responseXML.querySelector('DELEGATES').innerHTML.split(',');
     delNo = dels.indexOf(prompt('Enter last nation telegrammed if resuming manual campaign (you can view this on your telegram template, as the bottommost sent telegram). If starting campaign, leave the prompt blank and press OK.')) + 1;
-    originalTime2 = (new Date()).getTime()
+    originalTime2 = (new Date()).getTime() - 107000;
     start();
 	}
 }
@@ -125,9 +125,16 @@ function start(){
   // Wait for telegram cooldown to finish before actually posting recruits
   (function(){
     if(fd + 47336400 > originalTime2/1000){
-      return 107000 + (fd - originalTime2/1000) * 0.001376;
+      var tgwait = 107000 + (fd - originalTime2/1000) * 0.001376;
     }else{
-      return 41000;
+      var tgwait = 41000;
+    }
+    if(tgwait <= ((new Date()).getTime() - originalTime2)){
+      // Don't bother waiting if it took that long to get Delegates to telegram
+      return 0;
+    }else{
+      // If we still need to wait, wait for the length of time we need to minus what we already have
+      return tgwait - ((new Date()).getTime() - originalTime2);
     }
   })());
 }
