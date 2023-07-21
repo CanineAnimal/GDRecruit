@@ -115,9 +115,9 @@ function initiateRecruitGeneration(){
 	}else{
 		document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify<BR/><BR/><TABLE><THEAD><TH>Blacklisted string</TH><TH>Remove</TH></THEAD><TBODY>' + blacklistHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR></TBODY></TABLE>';
 	}if(fd + 47336400 > (new Date()).getTime()/1000){
-		setTimeout(generateRecruits, 1000 * (13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7) * recips + 1);
+		setTimeout(generateRecruits, 1000 * (13.25 + (fd - (new Date()).getTime()/1000) * 1.72 * 10**-7) * recips + 1000);
 	}else{
-		setTimeout(generateRecruits, 6);
+		setTimeout(generateRecruits, 5000 * recips + 1000);
 	}
 }
 function generateRecruits(){
