@@ -4,7 +4,6 @@ var notify = true;
 var freeNations = [];
 var blacklistHTML = '';
 var blacklist = [];
-var originalTime2;
 var originalTime;
 var recips = 0;
 var delNo = 0;
