@@ -153,7 +153,7 @@ function recBut(){
 
 function initiateDelGeneration(){
   originalTime2 = (new Date()).getTime();
-  if(delNo == dels.length){
+  if(delNo >= dels.length){
     // All Delegates have been telegrammed
     alert('All Delegates telegrammed! You may now close this tab.');
   }else{
