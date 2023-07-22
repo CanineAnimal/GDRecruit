@@ -52,33 +52,45 @@ function login(){
 	nat = document.querySelector('#NATION').value;
 	tem = document.querySelector('#TEMPLATE').value;
 	verif = document.querySelector('#VERIF').value;
+
+  // Check verification code
   var request = new XMLHttpRequest();
   request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?a=verify&nation=' + nat + '&checksum=' + verif + '&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
   request.send();
   originalTime = (new Date()).getTime();
+  
   if(request.responseText.indexOf('1') == -1){
+    // If nation cannot be verified, print error to that effect
     document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: Verification code is incorrect. Please make sure that you have entered your nation name and verification code correctly. Regenerate a verification code using the same link.</SPAN>';
   }else{
-    document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify <BR/><BR/><TABLE><THEAD><TH>Blacklisted string</TH><TH>Remove</TH></THEAD><TBODY>' + blackHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR></TBODY></TABLE>';
+    // Print loading text otherwise
+    document.body.innerHTML ='Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify <BR/><BR/><TABLE><THEAD><TH>Blacklisted string</TH><TH>Remove</TH></THEAD><TBODY>' + blackHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR></TBODY></TABLE>';
     request = new XMLHttpRequest();
     request.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + nat + '&q=foundedtime' + '&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
     while((new Date()).getTime() < originalTime + 600){};
     request.send();
+
+    // Check founding date for timer
     originalTime = (new Date()).getTime();
     fd = eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML);
     delRequest = new XMLHttpRequest();
     delRequest.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?wa=1&q=delegates&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
     while((new Date()).getTime() < originalTime + 600){};
     delRequest.send();
+
+    // Prepare for scanning Delegates
     originalTime = (new Date()).getTime();
     dels = delRequest.responseXML.querySelector('DELEGATES').innerHTML.split(',');
     delNo = dels.indexOf(prompt('Enter last nation telegrammed if resuming manual campaign (you can view this on your telegram template, as the bottommost sent telegram). If starting campaign, leave the prompt blank and press OK.')) + 1;
     originalTime2 = (new Date()).getTime() - 107000;
-    start();
+
+    // Start scanning Delegates and generating links etc; interval is used so that the loading text shows quickly.
+    setInterval(start, 500);
 	}
 }
 function start(){
-	link = 'https://www.nationstates.net/page=compose_telegram?tgto=';  var delsGotten = [];
+	link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
+  var delsGotten = [];
   while(delsGotten.length < 8){
     // Check that Delgate can receive campaign telegrams
   	request2 = new XMLHttpRequest();
@@ -155,12 +167,12 @@ function initiateDelGeneration(){
   }else{
     // Post Loading screen
     if(document.querySelector('#SOUND').checked){
-		  document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify<BR/><BR/><TABLE><THEAD><TH>Blacklisted string</TH><TH>Remove</TH></THEAD><TBODY>' + blackHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR></TBODY></TABLE>';
+      document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND" CHECKED/> Notify<BR/><BR/><TABLE><THEAD><TH>Blacklisted string</TH><TH>Remove</TH></THEAD><TBODY>' + blackHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR></TBODY></TABLE>';
     }else{
       document.body.innerHTML = 'Loading...<BR/><BR/><INPUT TYPE="CHECKBOX" ID="SOUND"/> Notify<BR/><BR/><TABLE><THEAD><TH>Blacklisted string</TH><TH>Remove</TH></THEAD><TBODY>' + blackHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR></TBODY></TABLE>';
     }
     
-    // Get new set of Delegates to telegram
-    start();
+    // Get new set of Delegates to telegram; timeout is so that loading text shows
+    setTimeout(start, 500);
   }
 }
