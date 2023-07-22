@@ -65,17 +65,25 @@ function login(){
     // Check founding date for timer
     originalTime = (new Date()).getTime();
     fd = eval(request.responseXML.querySelector('FOUNDEDTIME').innerHTML);
-    delRequest = new XMLHttpRequest();
-    delRequest.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?wa=1&q=delegates&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
-    while((new Date()).getTime() < originalTime + 600){};
-    delRequest.send();
 
-    // Prepare for scanning Delegates
+    // Get Delegates if needed
+    if(document.querySelector('#USEDELS').checked){
+      var delRequest = new XMLHttpRequest();
+      delRequest.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?wa=1&q=delegates&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
+      while((new Date()).getTime() < originalTime + 600){};
+      delRequest.send();
+      dels = delRequest.responseXML.querySelector('DELEGATES').innerHTML.split(',');
+      delNo = dels.indexOf(prompt('Enter last nation telegrammed if resuming manual campaign (you can view this on your telegram template, as the bottommost sent telegram). If starting campaign, leave the prompt blank and press OK.')) + 1;
+    }else{
+      // If not, use manual input
+      dels = document.querySelector('#MANINP').value;
+      delNo = 0;
+    }
+    
+    // Set rate limiters
     originalTime = (new Date()).getTime();
-    dels = delRequest.responseXML.querySelector('DELEGATES').innerHTML.split(',');
-    delNo = dels.indexOf(prompt('Enter last nation telegrammed if resuming manual campaign (you can view this on your telegram template, as the bottommost sent telegram). If starting campaign, leave the prompt blank and press OK.')) + 1;
     originalTime2 = (new Date()).getTime() - 107000;
-
+    
     // Start scanning Delegates and generating links etc; interval is used so that the loading text shows quickly.
     setTimeout(start, 500);
   }
