@@ -21,8 +21,8 @@ function whitelist(victim){
 	document.querySelector('TBODY').innerHTML = blackHTML + '<TR><TD>Blacklist string: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR>';
 }
 function add2blacklist(){
-	var victim = document.querySelector('#VICTIM').value;
-	blackHTML = '';
+  var victim = document.querySelector('#VICTIM').value;
+  blackHTML = '';
 	if(victim){
 		blacklist[blacklist.length] = victim;
 		for(var item = 0; item < blacklist.length; item++){
