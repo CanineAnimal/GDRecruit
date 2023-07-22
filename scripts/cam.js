@@ -109,7 +109,7 @@ function start(){
     delNo++;
     
     // If we have reached the last Delegate, break out of loop
-    if(delNo == dels.length){
+    if(delNo >= dels.length){
       break;
     }
   }
