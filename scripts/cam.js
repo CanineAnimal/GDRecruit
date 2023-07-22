@@ -28,22 +28,14 @@ function add2blacklist(){
     for(var item = 0; item < blacklist.length; item++){
       blackHTML += '<TR><TD>' + blacklist[item] + '</TD><TD><BUTTON ONCLICK="whitelist(' + item + ')" CLASS="WHITELIST">X</BUTTON></TD></TR>';
     }
-    var newFreeNations = [];
-    for(var item = 0; item < freeNations.length; item++){
-      if(freeNations[item].indexOf(victim.toLowerCase().replaceAll(' ', '_')) == -1){
-        newFreeNations[newFreeNations.length] = freeNations[item];
+    var newDels = [];
+    for(var item = 0; item < dels.length; item++){
+      if(dels[item] == victim){
+        newDels[newDels.length] = dels[item];
       }
     }
-    freeNations = newFreeNations;
-    var newNations = [];
-    for(var item = 0; item < nations.length; item++){
-      if(nations[item].indexOf(victim.toLowerCase().replaceAll(' ', '_')) == -1){
-        newNations[newNations.length] = nations[item];
-      }
-    }
-    nations = newNations;
+    dels = newDels;
     document.querySelector('TBODY').innerHTML = blackHTML + '<TR><TD>Blacklist nation: <INPUT ID="VICTIM"></INPUT></TD><TD><BUTTON ONCLICK="add2blacklist()" CLASS="BLACKLIST">Add</BUTTON></TD></TR>';
-
   }else{
     alert('No string entered to blacklist.')
   }
