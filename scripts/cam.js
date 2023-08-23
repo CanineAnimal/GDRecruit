@@ -30,7 +30,7 @@ function add2blacklist(){
 		}
 		var newDels = [];
 		for(var item = 0; item < dels.length; item++){
-			if(dels[item] == victim){
+			if(dels[item] != victim){
 				newDels[newDels.length] = dels[item];
 			}
 		}
