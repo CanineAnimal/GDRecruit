@@ -30,7 +30,7 @@ function add2blacklist(){
 		}
 		var newDels = [];
 		for(var item = 0; item < dels.length; item++){
-			if(dels[item] != victim){
+			if(dels[item].toLowerCase().replaceAll(' ', '_') != victim.toLowerCase().replaceAll(' ', '_')){
 				newDels[newDels.length] = dels[item];
 			}
 		}
@@ -103,7 +103,7 @@ function start(){
 		if(request2.responseXML.querySelector('TGCANCAMPAIGN').innerHTML == '1'){
 			var blacklisted = false;
 			for(var jtem = 0; jtem < blacklist.length; jtem++){
-				if(dels[delNo] == blacklist[jtem].toLowerCase().replaceAll(' ', '_')){
+				if(dels[delNo].toLowerCase().replaceAll(' ', '_') == blacklist[jtem].toLowerCase().replaceAll(' ', '_')){
 					blacklisted = true;
 				}
 			}
