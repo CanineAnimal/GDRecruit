@@ -52,7 +52,7 @@ function login(){
 	nat = document.querySelector('#NATION').value;
 	tem = document.querySelector('#TEMPLATE').value;
 	verif = document.querySelector('#VERIF').value;
-	if(['the_ice_states', 'the_macabees', 'holy_marsh', 'east_mintia', 'ardenfontein'].indexOf(nat.toLowerCase().replaceAll(' ', '_')) == -1){
+	if(['the_ice_states', 'the_macabees', 'holy_marsh', 'east_mintia', 'ardenfontein', 'union_of_the_orklanders'].indexOf(nat.toLowerCase().replaceAll(' ', '_')) == -1){
 		document.body.innerHTML += '<BR/><BR/><SPAN CLASS="ERROR">Error: Nation is not an authorised recruiter for Greater Dienstad.</SPAN>'
 	}else{
 		var request = new XMLHttpRequest();
