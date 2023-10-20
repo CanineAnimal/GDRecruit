@@ -75,7 +75,7 @@ function login(){
 			delNo = dels.indexOf(prompt('Enter last nation telegrammed if resuming manual campaign (you can view this on your telegram template, as the bottommost sent telegram). If starting campaign, leave the prompt blank and press OK.')) + 1;
 		}else{
 			// If not, use manual input
-			dels = document.querySelector('#MANINP').value.split(',');
+			dels = document.querySelector('#MANINP').value.replaceAll(', ', ',').split(',');
 			delNo = 0;
 		}
 
