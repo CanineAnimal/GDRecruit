@@ -8,6 +8,7 @@ var originalTime;
 var recips = 0;
 var delNo = 0;
 var request2;
+var maxrs;
 var tem;
 var nat;
 var fd;
@@ -44,6 +45,7 @@ function login(){
 	nat = document.querySelector('#NATION').value;
 	tem = document.querySelector('#TEMPLATE').value;
 	verif = document.querySelector('#VERIF').value;
+	maxrs = document.querySelector('#MAX').value;
 
 	// Check verification code
 	var request = new XMLHttpRequest();
@@ -91,7 +93,7 @@ function login(){
 function start(){
 	link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
 	var delsGotten = [];
-	while(delsGotten.length < 8){
+	while(delsGotten.length < maxrs){
 		// Check that Delgate can receive campaign telegrams
 		request2 = new XMLHttpRequest();
 		request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?nation=' + dels[delNo] + '&q=tgcancampaign&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
