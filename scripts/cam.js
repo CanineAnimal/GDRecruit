@@ -77,7 +77,7 @@ function login(){
 			// If not, use manual input
 			dels = document.querySelector('#MANINP').value.replaceAll(', ', ',');
 			if(dels[dels.length - 1] == ','){
-				dels[dels.length - 1] = '';
+				dels = dels.substr(0, dels.length - 1); // Remove trailing comma
 			}
 			dels = dels.split(',');
 			delNo = 0;
