@@ -139,9 +139,9 @@ function start(){
 	// Wait for telegram cooldown to finish before actually posting recruits
 	(function(){
 		if(fd + 47336400 > originalTime2/1000){
-			var tgwait = 107000 + (fd - originalTime2/1000) * 0.001376;
+			var tgwait = (107000 + (fd - originalTime2/1000) * 0.001376) * maxrs/8;
 		}else{
-			var tgwait = 41000;
+			var tgwait = 41000 * maxrs/8;
 		}
 		if(tgwait <= ((new Date()).getTime() - originalTime2)){
 			// Don't bother waiting if it took that long to get Delegates to telegram
