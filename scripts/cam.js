@@ -121,7 +121,7 @@ function start(){
 		// If we have reached the last Delegate, break out of loop
 		if(delNo >= dels.length){
 			if(tem.indexOf('%TEMPLATE-') != 0){
-				link += '&recruittype=campaign&recruitregion=region'
+				link += '&is_recruitment_tg=true&recruittype=campaign&recruitregion=region'
 			}
 			break;
 		}
