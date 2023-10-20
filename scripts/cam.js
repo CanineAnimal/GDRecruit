@@ -120,13 +120,12 @@ function start(){
 		
 		// If we have reached the last Delegate, break out of loop
 		if(delNo >= dels.length){
-			if(tem.indexOf('%TEMPLATE-') != 0){
-				link += '&is_recruitment_tg=true&recruittype=campaign&recruitregion=region'
-			}
 			break;
 		}
 	}
-	
+	if(tem.indexOf('%TEMPLATE-') != 0){ // Mark as campaign if not using template
+		link += '&is_recruitment_tg=true&recruittype=campaign&recruitregion=region'
+	}
 	setTimeout(function(){
 		// Post link
 		if(delsGotten.length > 0){
