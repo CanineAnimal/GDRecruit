@@ -43,7 +43,7 @@ function add2blacklist(){
 }
 function login(){
 	nat = document.querySelector('#NATION').value;
-	tem = document.querySelector('#TEMPLATE').value.replaceAll('=', '%3D').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('?', '%3F').replaceAll('=', '%3D').replaceAll(';', '%3B').replaceAll('\n', '%0D%0A').replaceAll('’', '\'').replaceAll('“', '%22').replaceAll('”', '%22');
+	tem = document.querySelector('#TEMPLATE').value.replaceAll('=', '%3D').replaceAll('#', '%23').replaceAll('&', '%26').replaceAll('?', '%3F').replaceAll('=', '%3D').replaceAll(';', '%3B').replaceAll('\n', '%0D%0A').replaceAll('’', '\'').replaceAll('“', '%22').replaceAll('”', '%22').replaceAll('"', '%22');
 	verif = document.querySelector('#VERIF').value;
 	maxrs = document.querySelector('#MAX').value;
 
