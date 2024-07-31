@@ -95,7 +95,7 @@ function login(){
 	}
 }
 function start(){
-	link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
+	link = 'https://www.nationstates.net/page=compose_telegram?generated_by=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat + '&tgto=';
 	var delsGotten = [];
 	while(delsGotten.length < maxrs){
 		// Check that Delgate can receive campaign telegrams
