@@ -74,7 +74,7 @@ function login(){
 	}
 }
 function start(){
-	link = 'https://www.nationstates.net/page=compose_telegram?tgto=';
+	link = 'https://www.nationstates.net/page=compose_telegram?generated_by=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat + '&tgto=';
 	request2 = new XMLHttpRequest();
 	request2.open('GET', 'https://www.nationstates.net/cgi-bin/api.cgi?q=newnations' + '&user_agent=GDRecruit maintained by the Ice States GitHub https://github.com/CanineAnimal/GDRecruit user ' + nat, false);
 	while((new Date()).getTime() < originalTime + 600){};
