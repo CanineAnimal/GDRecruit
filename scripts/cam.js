@@ -72,7 +72,7 @@ function login(){
 			while((new Date()).getTime() < originalTime + 600){};
 			delRequest.send();
 			dels = delRequest.responseXML.querySelector('DELEGATES').innerHTML.split(',');
-			delNo = dels.indexOf(prompt('Enter last nation telegrammed if resuming manual campaign (you can view this on your telegram template, as the bottommost sent telegram). If starting campaign, leave the prompt blank and press OK.')) + 1;
+			delNo = dels.indexOf(prompt('Enter last nation telegrammed if resuming manual campaign (you can view this on your telegram template, as the bottommost sent telegram). If starting campaign, leave the prompt blank and press OK.').toLowerCase().replaceAll(' ', '_')) + 1;
 		}else{
 			// If not, use manual input
 			dels = document.querySelector('#MANINP').value.replaceAll(', ', ',');
